@@ -1,4 +1,3 @@
-import module.config.server as server
 from module.base.button import ButtonGrid, color_similar, get_color
 from module.base.decorator import cached_property
 from module.base.timer import Timer
@@ -22,12 +21,8 @@ DOCK_FAVOURITE.add_state('off', check_button=COMMON_SHIP_FILTER_DISABLE)
 CARD_GRIDS = ButtonGrid(
     origin=(93, 76), delta=(164 + 2 / 3, 227), button_shape=(138, 204), grid_shape=(7, 2), name='CARD')
 CARD_RARITY_GRIDS = CARD_GRIDS.crop(area=(0, 0, 138, 5), name='RARITY')
-if server.server != 'jp':
-    CARD_LEVEL_GRIDS = CARD_GRIDS.crop(area=(77, 5, 138, 27), name='LEVEL')
-    CARD_EMOTION_GRIDS = CARD_GRIDS.crop(area=(23, 29, 48, 52), name='EMOTION')
-else:
-    CARD_LEVEL_GRIDS = CARD_GRIDS.crop(area=(74, 5, 136, 27), name='LEVEL')
-    CARD_EMOTION_GRIDS = CARD_GRIDS.crop(area=(21, 29, 71, 48), name='EMOTION')
+CARD_LEVEL_GRIDS = CARD_GRIDS.crop(area=(77, 5, 138, 27), name='LEVEL')
+CARD_EMOTION_GRIDS = CARD_GRIDS.crop(area=(23, 29, 48, 52), name='EMOTION')
 
 DOCK_SCROLL = Scroll(DOCK_SCROLL, color=(247, 211, 66), name='DOCK_SCROLL')
 
@@ -217,7 +212,7 @@ class Dock(Equipment):
             button (Button): Ship button to select
             skip_first_screenshot:
         """
-        # if self.config.SERVER == 'en':
+        # if 'en' == 'en':
         #     logger.info('EN has no dock_selected check currently, use plain click')
         #
         #     self.device.click(button)
@@ -256,7 +251,7 @@ class Dock(Equipment):
             bool: If selected a ship in dock.
                 True for ship counter 1/1, False for 0/1.
         """
-        # if self.config.SERVER == 'en':
+        # if 'en' == 'en':
         #     logger.info('EN has no dock_selected check currently, assume not selected')
         #     return False
 

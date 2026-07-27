@@ -15,7 +15,7 @@ from module.base.decorator import Config, cached_property, del_cached_property, 
 from module.base.timer import Timer
 from module.base.utils import ensure_time
 from module.config.deep import deep_get
-from module.config.server import VALID_CHANNEL_PACKAGE, VALID_PACKAGE, set_server
+from module.config.server import UNSUPPORTED_PACKAGE, VALID_PACKAGE, set_server
 from module.device.connection_attr import ConnectionAttr
 from module.device.env import IS_LINUX, IS_MACINTOSH, IS_WINDOWS
 from module.device.method.pool import WORKER_POOL
@@ -128,7 +128,7 @@ class Connection(ConnectionAttr):
         else:
             set_server(self.package)
         logger.attr('PackageName', self.package)
-        logger.attr('Server', self.config.SERVER)
+        logger.attr('Server', 'en')
 
         self.check_mumu_app_keep_alive()
 
@@ -1215,7 +1215,7 @@ class Connection(ConnectionAttr):
             list[str]: List of package names
         """
         packages = self.list_package(show_log=show_log)
-        packages = [p for p in packages if p in VALID_PACKAGE or p in VALID_CHANNEL_PACKAGE]
+        packages = [p for p in packages if p in VALID_PACKAGE]
         return packages
 
     def detect_package(self, set_config=True):
@@ -1236,8 +1236,14 @@ class Connection(ConnectionAttr):
 
         # Auto package detection
         if len(packages) == 0:
-            logger.critical(f'No AzurLane package found, '
-                            f'please confirm AzurLane has been installed on device "{self.serial}"')
+            installed = set(self.list_package(show_log=False))
+            unsupported = sorted(installed.intersection(UNSUPPORTED_PACKAGE))
+            if unsupported:
+                clients = ', '.join(unsupported)
+                logger.critical(f'Unsupported client: EN-only fork: {clients}')
+            else:
+                logger.critical(f'No EN AzurLane package found; install com.YoStarEN.AzurLane '
+                                f'on device "{self.serial}"')
             raise RequestHumanTakeover
         if len(packages) == 1:
             logger.info('Auto package detection found only one package, using it')

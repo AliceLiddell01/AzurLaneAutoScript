@@ -1,5 +1,5 @@
 from campaign.campaign_sos.campaign_base import CampaignBase
-from module.base.decorator import Config, cached_property
+from module.base.decorator import cached_property
 from module.base.utils import area_pad, random_rectangle_vector
 from module.campaign.run import CampaignRun
 from module.logger import logger
@@ -15,42 +15,19 @@ OCR_SOS_SIGNAL = Digit(OCR_SIGNAL, letter=(255, 255, 255), threshold=128, name='
 class CampaignSos(CampaignRun, CampaignBase):
 
     @cached_property
-    @Config.when(SERVER='en')
     def _sos_chapter_crop(self):
         return [-330, 8, -285, 45]
 
-    @cached_property
-    @Config.when(SERVER='jp')
-    def _sos_chapter_crop(self):
-        return [-430, 8, -382, 45]
+
+
+
 
     @cached_property
-    @Config.when(SERVER='tw')
-    def _sos_chapter_crop(self):
-        return [-400, 8, -370, 45]
-
-    @cached_property
-    @Config.when(SERVER=None)
-    def _sos_chapter_crop(self):
-        return [-403, 8, -381, 35]
-
-    @cached_property
-    @Config.when(SERVER='tw')
-    def _sos_scroll(self):
-        return Scroll(SOS_SCROLL_AREA, color=(247, 210, 66), name='SOS_SCROLL')
-
-    @cached_property
-    @Config.when(SERVER=None)
     def _sos_scroll(self):
         return Scroll(SOS_SCROLL_AREA, color=(164, 173, 189), name='SOS_SCROLL')
 
-    @cached_property
-    @Config.when(SERVER='tw')
-    def _sos_chapter_ocr(self):
-        return Digit([], letter=[173, 247, 74], threshold=180, name='OCR_SOS_CHAPTER')
 
     @cached_property
-    @Config.when(SERVER=None)
     def _sos_chapter_ocr(self):
         return Digit([], letter=[132, 230, 115], threshold=136, name='OCR_SOS_CHAPTER')
 
@@ -84,7 +61,6 @@ class CampaignSos(CampaignRun, CampaignBase):
             logger.info('Target SOS chapter not found')
             return None
 
-    @Config.when(SERVER='en')
     def _sos_signal_select(self, chapter):
         """
         select a SOS signal
@@ -120,44 +96,6 @@ class CampaignSos(CampaignRun, CampaignBase):
             self.device.screenshot()
         return False
 
-    @Config.when(SERVER=None)
-    def _sos_signal_select(self, chapter):
-        """
-        select a SOS signal
-
-        Args:
-            chapter (int): 3 to 10.
-
-        Pages:
-            in: page_campaign
-            out: page_campaign, in target chapter
-
-        Returns:
-            bool: whether select successful
-        """
-        logger.hr(f'Select chapter {chapter} signal ')
-        self.ui_click(SIGNAL_SEARCH_ENTER, appear_button=CAMPAIGN_CHECK, check_button=SIGNAL_LIST_CHECK,
-                      skip_first_screenshot=True)
-        if chapter in [3, 4, 5]:
-            positions = [0.0, 0.5, 1.0]
-        elif chapter in [6, 7]:
-            positions = [0.5, 1.0, 0.0]
-        elif chapter in [8, 9, 10]:
-            positions = [1.0, 0.5, 0.0]
-        else:
-            logger.warning(f'Unknown SOS chapter: {chapter}')
-            positions = [0.0, 0.5, 1.0]
-
-        for scroll_position in positions:
-            if self._sos_scroll.appear(main=self):
-                self._sos_scroll.set(scroll_position, main=self, distance_check=False)
-            else:
-                logger.info('SOS signal scroll not appear, skip setting scroll position')
-            target_button = self._find_target_chapter(chapter)
-            if target_button is not None:
-                self._sos_signal_confirm(entrance=target_button)
-                return True
-        return False
 
     def _sos_signal_confirm(self, entrance, skip_first_screenshot=True):
         """
@@ -202,10 +140,9 @@ class CampaignSos(CampaignRun, CampaignBase):
             in: Any page
             out: page_campaign
         """
-        if self.config.SERVER in ['cn', 'en', 'jp']:
-            logger.warning('AL no longer has SOS maps, disable task')
-            self.config.Scheduler_Enable = False
-            self.config.task_stop()
+        logger.warning('AL no longer has SOS maps, disable task')
+        self.config.Scheduler_Enable = False
+        self.config.task_stop()
 
         logger.hr('Campaign SOS', level=1)
         self.ui_ensure(page_campaign)

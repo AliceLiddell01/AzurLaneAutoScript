@@ -39,7 +39,7 @@ class UI(InfoHandler):
             return False
         # shitty EN localization changing font width of ACADEMY title,
         # check other buttons also
-        if self.config.SERVER == 'en' and page == page_academy:
+        if 'en' == 'en' and page == page_academy:
             if self.appear(ACADEMY_GOTO_MUNITIONS, offset=offset, interval=interval):
                 return True
         return self.appear(page.check_button, offset=offset, interval=interval)
@@ -219,7 +219,7 @@ class UI(InfoHandler):
         logger.warning("Unknown ui page")
         logger.attr("EMULATOR__SCREENSHOT_METHOD", self.config.Emulator_ScreenshotMethod)
         logger.attr("EMULATOR__CONTROL_METHOD", self.config.Emulator_ControlMethod)
-        logger.attr("SERVER", self.config.SERVER)
+        logger.attr("SERVER", 'en')
         logger.warning("Starting from current page is not supported")
         logger.warning(f"Supported page: {[str(page) for page in Page.iter_pages()]}")
         logger.warning('Supported page: Any page with a "HOME" button on the upper-right')

@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 
-import module.config.server as server
 from module.base.timer import Timer
 from module.campaign.campaign_event import CampaignEvent
 from module.combat.assets import *
@@ -138,13 +137,8 @@ def raid_ocr(raid, mode):
         return RaidCounter(button, letter=(214, 231, 219), threshold=128)
     elif raid == 'IRIS':
         # Font is not in model 'azur_lane', so use general ocr model
-        if server.server == 'en':
-            # Bold in EN
-            return RaidCounter(button, letter=(148, 138, 123), threshold=80, lang='cnocr')
-        if server.server == 'jp':
-            return RaidCounter(button, letter=(148, 138, 123), threshold=128, lang='cnocr')
-        else:
-            return DigitCounter(button, letter=(148, 138, 123), threshold=128, lang='cnocr')
+        return RaidCounter(button, letter=(148, 138, 123), threshold=80, lang='cnocr')
+        return DigitCounter(button, letter=(148, 138, 123), threshold=128, lang='cnocr')
     elif raid == "ALBION":
         return DigitCounter(button, letter=(99, 73, 57), threshold=128)
     elif raid == 'KUYBYSHEY':

@@ -1,6 +1,5 @@
 from datetime import datetime
 
-import module.config.server as server
 from module.base.button import ButtonGrid
 from module.base.timer import Timer
 from module.base.utils import *
@@ -35,14 +34,8 @@ class ActionPointBuyCounter(DigitCounter):
         return result
 
 
-if server.server != 'jp':
-    # Letters in ACTION_POINT_BUY_REMAIN are not the numeric fonts usually used in azur lane.
-    OCR_ACTION_POINT_BUY_REMAIN = ActionPointBuyCounter(
-        ACTION_POINT_BUY_REMAIN, letter=(148, 247, 99), lang='cnocr', name='OCR_ACTION_POINT_BUY_REMAIN')
-else:
-    # The color of the digits ACTION_POINT_BUY_REMAIN is white in JP, which is light green in CN and EN.
-    OCR_ACTION_POINT_BUY_REMAIN = ActionPointBuyCounter(
-        ACTION_POINT_BUY_REMAIN, letter=(255, 255, 255), lang='cnocr', name='OCR_ACTION_POINT_BUY_REMAIN')
+OCR_ACTION_POINT_BUY_REMAIN = ActionPointBuyCounter(
+    ACTION_POINT_BUY_REMAIN, letter=(148, 247, 99), lang='cnocr', name='OCR_ACTION_POINT_BUY_REMAIN')
 
 
 class ActionPointItem(Item):

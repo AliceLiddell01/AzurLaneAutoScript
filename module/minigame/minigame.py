@@ -1,4 +1,3 @@
-import module.config.server as server
 from module.combat.assets import GET_ITEMS_1
 from module.logger import logger
 from module.minigame.assets import *
@@ -8,16 +7,10 @@ from module.ui.page import page_academy, page_game_room
 from module.ui.scroll import Scroll
 from module.ui.ui import UI
 
-if server.server != 'jp':
-    OCR_COIN = Digit(COIN_HOLDER,
-                    name='OCR_COIN',
-                    letter=(255, 235, 115),
-                    threshold=128)
-else:
-    OCR_COIN = Digit(COIN_HOLDER,
-                    name='OCR_COIN',
-                    letter=(211, 196, 95),
-                    threshold=128)
+OCR_COIN = Digit(COIN_HOLDER,
+                name='OCR_COIN',
+                letter=(255, 235, 115),
+                threshold=128)
 MINIGAME_SCROLL = Scroll(MINIGAME_SCROLL_AREA, color=(247, 247, 247), name='MINIGAME_SCROLL')
 
 class MinigameRun(UI):

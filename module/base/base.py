@@ -480,4 +480,4 @@ class ModuleBase:
         package = to_package(server)
         self.device.package = package
         set_server(server)
-        logger.attr('Server', self.config.SERVER)
+        logger.attr('Server', 'en')

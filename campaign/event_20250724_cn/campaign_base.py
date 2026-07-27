@@ -19,22 +19,20 @@ class CampaignBaseT(CampaignBase_):
             return True
     
     def campaign_extract_name_image(self, image):
-        if self.config.SERVER == 'en':
-            # EN has small stage name
-            digits = []
-            if 'half' in self.config.STAGE_ENTRANCE:
-                digits += self.campaign_match_multi(
-                    TEMPLATE_STAGE_HALF_PERCENT,
-                    image, self._stage_image_gray,
-                    name_offset=(54, 3), name_size=(60, 10)
-                )
-            if '20240725' in self.config.STAGE_ENTRANCE:
-                digits += self.campaign_match_multi(
-                    TEMPLATE_STAGE_CLEAR_20240725,
-                    image, self._stage_image_gray,
-                    name_offset=(73, 2), name_size=(60, 10)
-                )
-            return digits
+        digits = []
+        if 'half' in self.config.STAGE_ENTRANCE:
+            digits += self.campaign_match_multi(
+                TEMPLATE_STAGE_HALF_PERCENT,
+                image, self._stage_image_gray,
+                name_offset=(54, 3), name_size=(60, 10)
+            )
+        if '20240725' in self.config.STAGE_ENTRANCE:
+            digits += self.campaign_match_multi(
+                TEMPLATE_STAGE_CLEAR_20240725,
+                image, self._stage_image_gray,
+                name_offset=(73, 2), name_size=(60, 10)
+            )
+        return digits
 
         return super().campaign_extract_name_image(image)
 

@@ -114,7 +114,7 @@ class BeaconReward(Combat, UI):
                 logger.info('meta_sync_receive ends at REWARD_ENTER')
                 break
 
-            if self.config.SERVER == 'en':
+            if 'en' == 'en':
                 if self.appear(SYNC_ENTER, offset=(20, 20)):
                     logger.info(f'meta_sync_receive ends at SYNC_ENTER')
                     break
@@ -167,7 +167,7 @@ class BeaconReward(Combat, UI):
             if self.appear(REWARD_ENTER, offset=(20, 20)):
                 logger.info(f'meta_wait_reward_page ends at {REWARD_ENTER}')
                 break
-            if self.config.SERVER == 'en':
+            if 'en' == 'en':
                 if self.appear(SYNC_ENTER, offset=(20, 20)):
                     logger.info(f'meta_wait_reward_page ends at {SYNC_ENTER}')
                     break
@@ -189,10 +189,10 @@ class BeaconReward(Combat, UI):
                 break
 
     def run(self):
-        if self.config.SERVER in ['cn', 'en', 'jp']:
+        if 'en' in ['cn', 'en', 'jp']:
             pass
         else:
-            logger.info(f'MetaReward is not supported in {self.config.SERVER}, please contact server maintainers')
+            logger.info(f'MetaReward is not supported in {'en'}, please contact server maintainers')
             return
 
         self.ui_ensure(page_meta)
@@ -301,10 +301,10 @@ class DossierReward(Combat, UI):
         return received
 
     def run(self):
-        if self.config.SERVER in ['cn', 'en', 'jp']:
+        if 'en' in ['cn', 'en', 'jp']:
             pass
         else:
-            logger.info(f'MetaReward is not supported in {self.config.SERVER}, please contact server maintainers')
+            logger.info(f'MetaReward is not supported in {'en'}, please contact server maintainers')
             return
 
         from module.os_ash.meta import OpsiAshBeacon

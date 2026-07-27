@@ -559,9 +559,7 @@ class RewardCommission(UI, InfoHandler):
                     # click_timer.reset()
                     continue
                 # handle oil maxed
-                if self.config.SERVER in ['cn']:
-                    if self.appear(OIL_MAXED, offset=(20, 20), interval=3):
-                        raise OilMaxed
+                pass
                 # Check GET_SHIP at last to handle random white background at page_main
                 for button in [GET_SHIP]:
                     if click_timer.reached() and self.appear(button, interval=1):

@@ -179,10 +179,7 @@ class GemsFarming(CampaignRun, Dock):
 
     @property
     def max_level(self):
-        if self.config.SERVER == 'cn':
-            return 100
-        else:
-            return 70
+        return 70
 
     @property
     def min_emotion(self):
