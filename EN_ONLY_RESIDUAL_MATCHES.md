@@ -1,30 +1,6 @@
 # EN-only residual-match audit
 
-The following matches remain and require classification. They are not automatically proof of active server support.
-
-| Path | Line | Kind | Match |
-|---|---:|---|---|
-| `.github/workflows/en-only-finalize.yml` | 75 | removed_azurstats | `&#124; jq -r '.content' &#124; tr -d '\n' &#124; base64 --decode > /tmp/azurstats-patch.b64` |
-| `.github/workflows/en-only-finalize.yml` | 76 | removed_azurstats | `base64 --decode /tmp/azurstats-patch.b64 > /tmp/azurstats-patch.gz` |
-| `.github/workflows/en-only-finalize.yml` | 77 | removed_azurstats | `echo "2417e6a2724de3dd8ef868a4144d9d294a974be3dfd6e4670207ed110bfd7059  /tmp/azurstats-patch.gz" &#124; sha256sum --check` |
-| `.github/workflows/en-only-finalize.yml` | 78 | removed_azurstats | `gzip -dc /tmp/azurstats-patch.gz &#124; git apply` |
-| `.github/workflows/en-only-finalize.yml` | 140 | removed_azurstats | `commit_phase azurstats 'refactor(statistics): remove AzurStats integration'` |
-| `.github/workflows/en-only-finalize.yml` | 144 | removed_azurstats | `commit_phase tests 'test: add EN-only package config and AzurStats coverage'` |
-| `.github/workflows/en-only-final2.yml` | 141 | removed_azurstats | `commit_phase azurstats 'refactor(statistics): remove AzurStats integration'` |
-| `.github/workflows/en-only-final2.yml` | 145 | removed_azurstats | `commit_phase tests 'test: add EN-only package config and AzurStats coverage'` |
-| `.github/workflows/en-only-audit-export.yml` | 75 | removed_azurstats | `&#124; jq -r '.content' &#124; tr -d '\n' &#124; base64 --decode > /tmp/azurstats_patch.b64` |
-| `.github/workflows/en-only-audit-export.yml` | 76 | removed_azurstats | `base64 --decode /tmp/azurstats_patch.b64 > /tmp/azurstats_patch.gz` |
-| `.github/workflows/en-only-audit-export.yml` | 77 | removed_azurstats | `echo "2417e6a2724de3dd8ef868a4144d9d294a974be3dfd6e4670207ed110bfd7059  /tmp/azurstats_patch.gz" &#124; sha256sum --check` |
-| `.github/workflows/en-only-audit-export.yml` | 78 | removed_azurstats | `gzip -dc /tmp/azurstats_patch.gz > /tmp/azurstats_tools.patch` |
-| `.github/workflows/en-only-audit-export.yml` | 79 | removed_azurstats | `git apply /tmp/azurstats_tools.patch` |
-| `.github/workflows/en-only-audit-export.yml` | 156 | removed_azurstats | `commit_phase azurstats 'refactor(statistics): remove AzurStats integration'` |
-| `.github/workflows/en-only-audit-export.yml` | 160 | removed_azurstats | `commit_phase tests 'test: add EN-only package config and AzurStats coverage'` |
-| `.github/workflows/en-only-resume.yml` | 75 | removed_azurstats | `&#124; jq -r '.content' &#124; tr -d '\n' &#124; base64 --decode > /tmp/azurstats_patch.b64` |
-| `.github/workflows/en-only-resume.yml` | 76 | removed_azurstats | `base64 --decode /tmp/azurstats_patch.b64 > /tmp/azurstats_patch.gz` |
-| `.github/workflows/en-only-resume.yml` | 77 | removed_azurstats | `echo "2417e6a2724de3dd8ef868a4144d9d294a974be3dfd6e4670207ed110bfd7059  /tmp/azurstats_patch.gz" &#124; sha256sum --check` |
-| `.github/workflows/en-only-resume.yml` | 78 | removed_azurstats | `gzip -dc /tmp/azurstats_patch.gz &#124; git apply` |
-| `.github/workflows/en-only-resume.yml` | 144 | removed_azurstats | `commit_phase azurstats 'refactor(statistics): remove AzurStats integration'` |
-| `.github/workflows/en-only-resume.yml` | 148 | removed_azurstats | `commit_phase tests 'test: add EN-only package config and AzurStats coverage'` |
+No unallowlisted removed package, locale, dispatch, asset-path, or CN-infrastructure matches remain in text sources.
 
 
 ## Intentionally retained legacy names

@@ -1,8 +1,8 @@
 path,kind,language_or_server,runtime_referenced,references,generated,source_of_truth,unique_content,planned_action,replacement_path,risk,status
-.github/workflows/en-only-audit-export.yml,build_or_deploy,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,medium,reviewed_or_retained
-.github/workflows/en-only-final2.yml,build_or_deploy,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,medium,reviewed_or_retained
-.github/workflows/en-only-finalize.yml,build_or_deploy,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,medium,reviewed_or_retained
-.github/workflows/en-only-resume.yml,build_or_deploy,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,medium,reviewed_or_retained
+.github/workflows/en-only-audit-export.yml,build_or_deploy,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,medium,removed
+.github/workflows/en-only-final2.yml,build_or_deploy,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,medium,removed
+.github/workflows/en-only-finalize.yml,build_or_deploy,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,medium,removed
+.github/workflows/en-only-resume.yml,build_or_deploy,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,medium,removed
 README.md,documentation,CN/TW+JP+TW,no,CN; cn; 简体中文; JP; jp; 日本語; TW; tw; AzurStats; azurstats; azur-stats.lyoko.io,no,,pending_review,remove_service_integration,,medium,reviewed_or_retained
 README_en.md,documentation,CN/TW+JP+TW,no,CN; cn; 简体中文; JP; jp; 日本語; TW; tw; AzurStats; azurstats; azur-stats.lyoko.io,no,,pending_review,remove_service_integration,,medium,removed
 README_jp.md,documentation,CN/TW+JP+TW,no,CN; cn; JP; jp; 日本語; TW; tw; AzurStats; azurstats; azur-stats.lyoko.io,no,,pending_review,remove_service_integration,,medium,removed
