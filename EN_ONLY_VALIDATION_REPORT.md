@@ -68,3 +68,20 @@ import module.private_quarters.assets` | 0 | PASS |
 Skipped: node_modules is not present in the repository snapshot.
 ```
 
+
+## Reproducible runner baseline
+
+- Fork baseline: 5e0453a6349c273efb558fc583da55e11f938248
+- Upstream baseline: 5e0453a6349c273efb558fc583da55e11f938248
+- Python: Python 3.10.20
+- Node: v16.20.2
+- npm: 8.19.4
+
+## Webapp baseline comparison
+
+| Check | Baseline exit | Post-migration exit | Classification |
+|---|---:|---:|---|
+| lint | 1 | 1 | BASELINE FAILURE (not introduced by migration) |
+| typecheck | 0 | 0 | PASS |
+| test | 1 | 1 | BASELINE FAILURE (not introduced by migration) |
+| build | 0 | 0 | PASS |
