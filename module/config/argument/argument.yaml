@@ -101,7 +101,7 @@ DropRecord:
   AzurStatsID: null
   API:
     value: default
-    option: [ default, cn_gz_reverse_proxy]
+    option: [ default ]
   ResearchRecord:
     value: do_not
     option: [ do_not, save, upload, save_and_upload ]
@@ -772,9 +772,5 @@ Benchmark:
   TestScene:
     value: screenshot_click
     option: [ screenshot_click, screenshot, click ]
-AzurLaneUncensored:
-  Repository:
-    value: https://gitee.com/LmeSzinc/AzurLaneUncensored
-    display: disabled
 GameManager:
   AutoRestart: true

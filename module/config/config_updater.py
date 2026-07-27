@@ -2,7 +2,10 @@ import re
 import typing as t
 from copy import deepcopy
 
-from cached_property import cached_property
+try:
+    from cached_property import cached_property
+except ImportError:  # Python 3.8+ fallback for audit/generation environments
+    from functools import cached_property
 
 from deploy.utils import DEPLOY_TEMPLATE, poor_yaml_read, poor_yaml_write
 from module.base.timer import timer
@@ -24,12 +27,7 @@ class GeneratedConfig:
     Auto generated configuration
     """
 '''.strip().split('\n')
-ARCHIVES_PREFIX = {
-    'cn': '档案 ',
-    'en': 'archives ',
-    'jp': '檔案 ',
-    'tw': '檔案 '
-}
+ARCHIVES_PREFIX = {'en': 'archives '}
 MAINS = ['Main', 'Main2', 'Main3']
 EVENTS = ['Event', 'Event2', 'EventA', 'EventB', 'EventC', 'EventD', 'EventSp']
 GEMS_FARMINGS = ['GemsFarming']
@@ -42,14 +40,10 @@ HOSPITAL = ['Hospital']
 
 class Event:
     def __init__(self, text):
-        self.date, self.directory, self.name, self.cn, self.en, self.jp, self.tw \
-            = [x.strip() for x in text.strip('| \n').split('|')]
+        self.date, self.directory, self.name, self.en = [x.strip() for x in text.strip('| \n').split('|')]
 
         self.directory = self.directory.replace(' ', '_')
-        self.cn = self.cn.replace('、', '')
         self.en = self.en.replace(',', '').replace('\'', '').replace('\\', '')
-        self.jp = self.jp.replace('、', '')
-        self.tw = self.tw.replace('、', '')
         self.is_war_archives = self.directory.startswith('war_archives')
         self.is_raid = self.directory.startswith('raid_')
         self.is_coalition = self.directory.startswith('coalition_')
@@ -295,19 +289,11 @@ class ConfigGenerator:
             deep_load(path)
             if 'option' in data:
                 deep_load(path, words=data['option'], default=False)
-        # Event names
-        # Names come from SameLanguageServer > en > cn > jp > tw
+        # Event names: EN is the only supported locale/server.
         events = {}
         for event in self.event:
-            if lang in LANG_TO_SERVER:
-                name = event.__getattribute__(LANG_TO_SERVER[lang])
-                if name:
-                    deep_default(events, keys=event.directory, value=name)
-        for server in ['en', 'cn', 'jp', 'tw']:
-            for event in self.event:
-                name = event.__getattribute__(server)
-                if name:
-                    deep_default(events, keys=event.directory, value=name)
+            if event.en:
+                deep_default(events, keys=event.directory, value=event.en)
         for event in sorted(self.event):
             name = events.get(event.directory, event.directory)
             deep_set(new, keys=f'Campaign.Event.{event.directory}', value=name)
@@ -316,15 +302,6 @@ class ConfigGenerator:
             path = ['Emulator', 'PackageName', package]
             if deep_get(new, keys=path) == package:
                 deep_set(new, keys=path, value=server.upper())
-
-        for package, server_and_channel in VALID_CHANNEL_PACKAGE.items():
-            server, channel = server_and_channel
-            name = deep_get(new, keys=['Emulator', 'PackageName', to_package(server)])
-            if lang == SERVER_TO_LANG[server]:
-                value = f'{name} {channel}渠道服 {package}'
-            else:
-                value = f'{name} {package}'
-            deep_set(new, keys=['Emulator', 'PackageName', package], value=value)
         # Game server names
         for server, _list in VALID_SERVER_LIST.items():
             for index in range(len(_list)):
@@ -336,21 +313,6 @@ class ConfigGenerator:
         for path, _ in deep_iter(self.gui, depth=2):
             group, key = path
             deep_load(keys=['Gui', group], words=(key,))
-        # zh-TW
-        dic_repl = {
-            '設置': '設定',
-            '支持': '支援',
-            '啓': '啟',
-            '异': '異',
-            '服務器': '伺服器',
-            '文件': '檔案',
-        }
-        if lang == 'zh-TW':
-            for path, value in deep_iter(new, depth=3):
-                for before, after in dic_repl.items():
-                    value = value.replace(before, after)
-                deep_set(new, keys=path, value=value)
-
         write_file(filepath_i18n(lang), new)
 
     @cached_property
@@ -392,7 +354,7 @@ class ConfigGenerator:
         lines = []
         data_lines = []
         data_widths = []
-        column_width = [4] * 7  # `:---`
+        column_width = [4] * 4  # `:---`
         events = []
         with open('./campaign/Readme.md', encoding='utf-8') as f:
             for text in f.readlines():
@@ -473,11 +435,6 @@ class ConfigGenerator:
     @staticmethod
     def generate_deploy_template():
         template = poor_yaml_read(DEPLOY_TEMPLATE)
-        cn = {
-            'Repository': 'git://git.lyoko.io/AzurLaneAutoScript',
-            'PypiMirror': 'https://mirrors.aliyun.com/pypi/simple',
-            'Language': 'zh-CN',
-        }
         aidlux = {
             'GitExecutable': '/usr/bin/git',
             'PythonExecutable': '/usr/bin/python',
@@ -509,13 +466,9 @@ class ConfigGenerator:
             poor_yaml_write(data=new, file=file)
 
         update('template')
-        update('template-cn', cn)
         update('template-AidLux', aidlux)
-        update('template-AidLux-cn', aidlux, cn)
         update('template-docker', docker)
-        update('template-docker-cn', docker, cn)
         update('template-linux', linux)
-        update('template-linux-cn', linux, cn)
 
     def insert_package(self):
         option = deep_get(self.argument, keys='Emulator.PackageName.option')

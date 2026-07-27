@@ -342,7 +342,5 @@ Tool:
       - EventStory
     Benchmark:
       - Benchmark
-    AzurLaneUncensored:
-      - AzurLaneUncensored
     GameManager:
       - GameManager

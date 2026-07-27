@@ -9,20 +9,10 @@ import module.config.server as server_
 from deploy.atomic import atomic_read_text, atomic_read_bytes, atomic_write
 from module.submodule.utils import *
 
-LANGUAGES = ['zh-CN', 'en-US', 'ja-JP', 'zh-TW']
-SERVER_TO_LANG = {
-    'cn': 'zh-CN',
-    'en': 'en-US',
-    'jp': 'ja-JP',
-    'tw': 'zh-TW',
-}
-LANG_TO_SERVER = {v: k for k, v in SERVER_TO_LANG.items()}
-SERVER_TO_TIMEZONE = {
-    'cn': timedelta(hours=8),
-    'en': timedelta(hours=-7),
-    'jp': timedelta(hours=9),
-    'tw': timedelta(hours=8),
-}
+LANGUAGES = ['en-US']
+SERVER_TO_LANG = {'en': 'en-US'}
+LANG_TO_SERVER = {'en-US': 'en'}
+SERVER_TO_TIMEZONE = {'en': timedelta(hours=-7)}
 DEFAULT_TIME = datetime(2020, 1, 1, 0, 0)
 
 
@@ -284,7 +274,7 @@ def dict_to_kv(dictionary, allow_none=True):
 
 
 def server_timezone() -> timedelta:
-    return SERVER_TO_TIMEZONE.get(server_.server, SERVER_TO_TIMEZONE['cn'])
+    return SERVER_TO_TIMEZONE['en']
 
 
 def server_time_offset() -> timedelta:

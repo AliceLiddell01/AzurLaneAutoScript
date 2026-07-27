@@ -21,17 +21,6 @@ def upload_redirect(value):
             return 'save'
 
 
-def api_redirect(value):
-    """
-    redirect attr about api.
-    """
-    if value == 'auto':
-        return 'default'
-    elif to_server(value) == 'cn':
-        return 'cn_gz_reverse_proxy'
-    else:
-        return 'default'
-
 
 def dossier_redirect(value):
     """
@@ -93,15 +82,6 @@ def change_ship_redirect(value):
     else:
         return 'ship'
 
-
-def api_redirect2(value):
-    """
-    remove shanghai proxy, use guangzhou
-    """
-    if value == 'cn_sh_reverse_proxy':
-        return 'cn_gz_reverse_proxy'
-    else:
-        return value
 
 
 def coalition_to_frostfall(value):

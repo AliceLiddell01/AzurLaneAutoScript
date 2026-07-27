@@ -1,7 +1,6 @@
 Deploy:
   Git:
     # URL of AzurLaneAutoScript repository
-    # [CN user] Use 'cn' to get update from git-over-cdn service
     # [Other] Use 'global' to get update from https://github.com/LmeSzinc/StarRailCopilot
     Repository: 'global'
     # Branch of Alas
@@ -13,7 +12,6 @@ Deploy:
     # [Other] Use you own git
     GitExecutable: './toolkit/Git/mingw64/bin/git.exe'
     # Set git proxy
-    # [CN user] Use your local http proxy (http://127.0.0.1:{port}) or socks5 proxy (socks5://127.0.0.1:{port})
     # [Other] Use null
     GitProxy: null
     # Set SSL Verify
@@ -30,7 +28,6 @@ Deploy:
     # [Other] Use you own python, and its version should be 3.7.6 64bit
     PythonExecutable: './toolkit/python.exe'
     # URL of pypi mirror
-    # [CN user] Use 'https://pypi.tuna.tsinghua.edu.cn/simple' for faster and more stable download
     # [Other] Use null
     PypiMirror: null
     # Install dependencies at startup
@@ -126,10 +123,7 @@ Deploy:
     # [In most cases] Default to 22367
     WebuiPort: 22367
     # Language to use on web ui
-    # 'zh-CN' for Chinese simplified
-    # 'en-US' for English
-    # 'ja-JP' for Japanese
-    # 'zh-TW' for Chinese traditional
+    # EN-only fork: English UI
     # 'es-ES' for Spanish
     Language: en-US
     # Theme of web ui
