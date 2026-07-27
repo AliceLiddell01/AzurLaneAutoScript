@@ -6,6 +6,11 @@ on:
       - refactor/en-only-remove-cn-jp-tw
     paths:
       - .github/workflows/en-only-audit-export.yml
+  pull_request:
+    branches:
+      - master
+    paths:
+      - .github/workflows/en-only-audit-export.yml
   workflow_dispatch:
 
 permissions:
