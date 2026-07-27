@@ -13,7 +13,7 @@ from module.handler.auto_search import AutoSearchHandler
 from module.logger import logger
 from module.map.assets import MAP_OFFENSIVE
 from module.retire.retirement import Retirement
-from module.statistics.azurstats import DropImage
+from module.statistics.drop_record import DropImage
 from module.template.assets import TEMPLATE_COMBAT_LOADING
 from module.ui.assets import BACK_ARROW, EXERCISE_CHECK, MUNITIONS_CHECK
 
@@ -83,14 +83,8 @@ class Combat(Level, HPBalancer, Retirement, SubmarineCall, CombatAuto, CombatMan
             Button: PAUSE button that appears
         """
         self.device.stuck_record_add(PAUSE)
-        if self.config.SERVER in ['cn', 'en']:
-            if PAUSE.match_luma(self.device.image, offset=(10, 10)):
-                return PAUSE
-        else:
-            color = get_color(self.device.image, PAUSE.area)
-            if color_similar(color, PAUSE.color) or color_similar(color, (238, 244, 248)):
-                if np.max(self.image_crop(PAUSE_DOUBLE_CHECK, copy=False)) < 153:
-                    return PAUSE
+        if PAUSE.match_luma(self.device.image, offset=(10, 10)):
+            return PAUSE
         if PAUSE_New.match_template_color(self.device.image, offset=(10, 10)):
             return PAUSE_New
         if PAUSE_Iridescent_Fantasy.match_luma(self.device.image, offset=(10, 10)):
@@ -654,7 +648,7 @@ class Combat(Level, HPBalancer, Retirement, SubmarineCall, CombatAuto, CombatMan
         # if not hasattr(self, 'emotion'):
         #     self.emotion = Emotion(config=self.config)
 
-        with self.stat.new(
+        with self.drop_record.new(
                 genre=self.config.campaign_name, method=self.config.DropRecord_CombatRecord
         ) as drop:
             if save_get_items is False:

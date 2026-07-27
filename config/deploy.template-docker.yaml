@@ -1,7 +1,6 @@
 Deploy:
   Git:
     # URL of AzurLaneAutoScript repository
-    # [CN user] Use 'git://git.lyoko.io/AzurLaneAutoScript' for faster and more stable download
     # [Other] Use 'https://github.com/LmeSzinc/AzurLaneAutoScript'
     Repository: https://github.com/LmeSzinc/AzurLaneAutoScript
     # Branch of Alas
@@ -13,7 +12,6 @@ Deploy:
     # [Other] Use you own git
     GitExecutable: /usr/bin/git
     # Set git proxy
-    # [CN user] Use your local http proxy (http://127.0.0.1:{port}) or socks5 proxy (socks5://127.0.0.1:{port})
     # [Other] Use null
     GitProxy: null
     # Set SSL Verify
@@ -30,7 +28,6 @@ Deploy:
     # [Other] Use you own python, and its version should be 3.7.6 64bit
     PythonExecutable: /usr/local/bin/python
     # URL of pypi mirror
-    # [CN user] Use 'https://mirrors.aliyun.com/pypi/simple' for faster and more stable download
     # [Other] Use null
     PypiMirror: null
     # Install dependencies at startup
@@ -126,10 +123,7 @@ Deploy:
     # [In most cases] Default to 22267
     WebuiPort: 22267
     # Language to use on web ui
-    # 'zh-CN' for Chinese simplified
-    # 'en-US' for English
-    # 'ja-JP' for Japanese
-    # 'zh-TW' for Chinese traditional
+    # EN-only fork: English UI
     Language: en-US
     # Theme of web ui
     # 'default' for light theme

@@ -1,7 +1,6 @@
 import re
 from functools import partial
 
-from module.base.decorator import Config
 from module.base.filter import Filter
 from module.base.timer import Timer
 from module.config.config_generated import GeneratedConfig
@@ -87,41 +86,7 @@ class ResearchSelector(ResearchUI):
             else:
                 return project
 
-    @Config.when(SERVER='jp')
-    def research_detect(self):
-        """
-        We do not need a screenshot here actually. 'image' is a null argument.
-        Adding this argument is just to eusure all "research_detect" have the same arguments.
-        """
-        projects = []
-        proj_sorted = []
 
-        for _ in range(5):
-            self.device.click_record_clear()
-            """
-            Every time entering the 4th(mid-right) entrance,
-            all research subjects shift 1 position from right to left.
-            """
-            self.research_goto_detail(3)
-            """
-            'image' is a null argument as described above.
-            What we need here is the current screen 'self.device.image'.
-            """
-            project = self._research_jp_detect()
-            logger.attr('Project', project)
-            projects.append(project)
-            self.research_detail_quit()
-        """
-        page_research should remain the same as before.
-        Since we entered the 4th entrance first,
-        the indexes from left to right are (2, 3, 4, 0, 1).
-        """
-        for pos in range(5):
-            proj_sorted.append(projects[(pos + 2) % 5])
-
-        self.projects = proj_sorted
-
-    @Config.when(SERVER=None)
     def research_detect(self):
         timeout = Timer(5, count=5).start()
         while 1:
@@ -241,12 +206,8 @@ class ResearchSelector(ResearchUI):
         #   Ignore E-2 if don't have any boxes in storage to disassemble,
         #   Or will enter a loop of starting research, trying to disassemble, cancel research
         if not self.storage_has_boxes:
-            if self.config.SERVER == 'jp':
-                if project.genre.upper() == 'E' and str(project.duration) != '6':
-                    return False
-            else:
-                if project.genre.upper() == 'E' and project.task != '':
-                    return False
+            if project.genre.upper() == 'E' and project.task != '':
+                return False
 
         return True
 

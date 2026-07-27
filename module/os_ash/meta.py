@@ -1,7 +1,6 @@
 import re
 from enum import Enum
 
-import module.config.server as server
 from module.base.timer import Timer
 from module.combat.combat import BATTLE_PREPARATION
 from module.logger import logger
@@ -23,10 +22,7 @@ class MetaState(Enum):
 
 
 OCR_BEACON_TIER = Digit(BEACON_TIER, name='OCR_ASH_TIER')
-if server.server != 'jp':
-    OCR_META_DAMAGE = Digit(META_DAMAGE, name='OCR_META_DAMAGE')
-else:
-    OCR_META_DAMAGE = Digit(META_DAMAGE, letter=(201, 201, 201), name='OCR_META_DAMAGE')
+OCR_META_DAMAGE = Digit(META_DAMAGE, name='OCR_META_DAMAGE')
 
 
 class MetaDigitCounter(DigitCounter):
@@ -82,11 +78,11 @@ class Meta(UI, MapEventHandler):
 
 
 def _server_support():
-    return server.server in ['cn', 'en', 'jp', 'tw']
+    return True
 
 
 def _server_support_dossier_auto_attack():
-    return server.server in ['cn', 'en']
+    return True
 
 
 class OpsiAshBeacon(Meta):

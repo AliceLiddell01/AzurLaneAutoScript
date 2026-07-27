@@ -1,6 +1,5 @@
 import re
 
-import module.config.server as server
 from module.base.decorator import cached_property, del_cached_property
 
 
@@ -76,10 +75,10 @@ class Resource:
 
         Args:
             data: Dict or str
-            s (str): Load from given a server or load from global attribute `server.server`
+            s (str): Load from given a server or load from global attribute `'en'`
         """
         if s is None:
-            s = server.server
+            s = 'en'
         if isinstance(data, dict):
             return data[s]
         else:
@@ -107,9 +106,9 @@ def release_resources(next_task=''):
             models = []
         elif next_task:
             # Release OCR models except 'azur_lane'
-            models = ['cnocr', 'jp', 'tw']
+            models = ['cnocr']
         else:
-            models = ['azur_lane', 'cnocr', 'jp', 'tw']
+            models = ['azur_lane', 'cnocr']
         for model in models:
             del_cached_property(OCR_MODEL, model)
 

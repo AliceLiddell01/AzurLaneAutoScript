@@ -15,7 +15,7 @@ from module.base.decorator import Config, cached_property, del_cached_property, 
 from module.base.timer import Timer
 from module.base.utils import ensure_time
 from module.config.deep import deep_get
-from module.config.server import VALID_CHANNEL_PACKAGE, VALID_PACKAGE, set_server
+from module.config.server import UNSUPPORTED_PACKAGE, VALID_PACKAGE, set_server
 from module.device.connection_attr import ConnectionAttr
 from module.device.env import IS_LINUX, IS_MACINTOSH, IS_WINDOWS
 from module.device.method.pool import WORKER_POOL
@@ -128,7 +128,7 @@ class Connection(ConnectionAttr):
         else:
             set_server(self.package)
         logger.attr('PackageName', self.package)
-        logger.attr('Server', self.config.SERVER)
+        logger.attr('Server', 'en')
 
         self.check_mumu_app_keep_alive()
 
@@ -382,7 +382,7 @@ class Connection(ConnectionAttr):
             return True
         elif res == 'true':
             # https://mumu.163.com/help/20230802/35047_1102450.html
-            logger.critical('请在MuMu模拟器设置内关闭 "后台挂机时保活运行"')
+            logger.critical('Disable Background Keep-Alive in the MuMuPlayer settings')
             raise RequestHumanTakeover
         else:
             logger.warning(f'Invalid nemud.app_keep_alive value: {res}')
@@ -859,7 +859,6 @@ class Connection(ConnectionAttr):
         logger.attr('customer.network_bridge_opened', value)
         if str(value).lower() == 'true':
             logger.critical('Please turn off "Network Bridging" in the settings of MuMuPlayer')
-            logger.critical('请在MuMU模拟器设置中关闭 网络桥接')
             raise RequestHumanTakeover
         return True
 
@@ -1026,12 +1025,11 @@ class Connection(ConnectionAttr):
                     device = AdbDeviceWithStatus(self.adb_client, parts[0], parts[1])
                     devices.append(device)
         except ConnectionResetError as e:
-            # Happens only on CN users.
+            # This localized Windows socket error may occur on systems with traffic-interception software.
             # ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
             logger.error(e)
             if '强迫关闭' in str(e):
-                logger.critical('无法连接至ADB服务，请关闭UU加速器、原神私服、以及一些劣质代理软件。'
-                                '它们会劫持电脑上所有的网络连接，包括Alas与模拟器之间的本地连接。')
+                logger.critical('Unable to connect to ADB. Disable software that intercepts local network traffic, such as game accelerators or low-quality proxies.')
         return SelectedGrids(devices)
 
     def detect_device(self):
@@ -1215,7 +1213,7 @@ class Connection(ConnectionAttr):
             list[str]: List of package names
         """
         packages = self.list_package(show_log=show_log)
-        packages = [p for p in packages if p in VALID_PACKAGE or p in VALID_CHANNEL_PACKAGE]
+        packages = [p for p in packages if p in VALID_PACKAGE]
         return packages
 
     def detect_package(self, set_config=True):
@@ -1236,8 +1234,14 @@ class Connection(ConnectionAttr):
 
         # Auto package detection
         if len(packages) == 0:
-            logger.critical(f'No AzurLane package found, '
-                            f'please confirm AzurLane has been installed on device "{self.serial}"')
+            installed = set(self.list_package(show_log=False))
+            unsupported = sorted(installed.intersection(UNSUPPORTED_PACKAGE))
+            if unsupported:
+                clients = ', '.join(unsupported)
+                logger.critical(f'Unsupported client: EN-only fork: {clients}')
+            else:
+                logger.critical(f'No EN AzurLane package found; install com.YoStarEN.AzurLane '
+                                f'on device "{self.serial}"')
             raise RequestHumanTakeover
         if len(packages) == 1:
             logger.info('Auto package detection found only one package, using it')

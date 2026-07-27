@@ -159,12 +159,7 @@ class OSFleet(OSCamera, Combat, Fleet, OSAsh):
         hp_grid = super()._hp_grid()
 
         # Location of six HP bar, according to respective server for os
-        if self.config.SERVER == 'en':
-            hp_grid = ButtonGrid(origin=(35, 205), delta=(0, 100), button_shape=(66, 3), grid_shape=(1, 6))
-        elif self.config.SERVER == 'jp':
-            pass
-        else:
-            pass
+        hp_grid = ButtonGrid(origin=(35, 205), delta=(0, 100), button_shape=(66, 3), grid_shape=(1, 6))
 
         return hp_grid
 
@@ -776,7 +771,7 @@ class OSFleet(OSCamera, Combat, Fleet, OSAsh):
         logger.hr(f'BOSS clear', level=1)
 
         fleets = self.parse_fleet_filter()
-        with self.stat.new(
+        with self.drop_record.new(
                 genre=inflection.underscore(self.config.task.command),
                 method=self.config.DropRecord_OpsiRecord
         ) as drop:

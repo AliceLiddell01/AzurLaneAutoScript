@@ -32,11 +32,11 @@ class EmulatorManager(AlasManager):
         for proc in self.iter_process_by_names([
             # Most emulator use this
             'adb.exe',
-            # NoxPlayer 夜神模拟器
+            # NoxPlayer
             'nox_adb.exe',
-            # MumuPlayer MuMu模拟器
+            # MuMuPlayer
             'adb_server.exe',
-            # Bluestacks 蓝叠模拟器
+            # BlueStacks
             'HD-Adb.exe'
         ]):
             logger.info(proc)

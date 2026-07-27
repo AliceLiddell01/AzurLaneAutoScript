@@ -5,7 +5,7 @@ class GridInfo:
     """
     Class that gather basic information of a grid in map_v1.
 
-    Visit 碧蓝航线WIKI(Chinese Simplified) http://wiki.biligame.com/blhx, to get basic info of a map_v1.
+    Use a current English Azur Lane map reference to obtain the map's basic layout data.
     For example, visit http://wiki.biligame.com/blhx/7-2, to know more about campaign 7-2,
     which includes boss point, enemy spawn point.
 

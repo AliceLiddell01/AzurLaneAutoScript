@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 import module.config.server as server
 
-server.server = 'cn'  # Edit your server here.
+server.server = 'en'  # Edit your server here.
 
 from module.logger import logger
 from module.statistics.battle_status import BattleStatusStatistics

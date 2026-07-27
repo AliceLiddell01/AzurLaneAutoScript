@@ -7,7 +7,7 @@ This file is used to extract `word_template.lua`, aka, the blacklist words file.
 
 Git clone the repository here, https://github.com/Dimbreath/AzurLaneData, to get the decrypted scripts.
 Then put your filepath here, like `<your_folder>/<server>/sharecfg/word_template.lua`
-Server list: en-US, ja-JP, ko-KR, zh-CN, zh-TW
+Use the en-US data directory for this EN-only fork.
 """
 file = ''
 count = 0
@@ -34,11 +34,7 @@ def extract(dic, word_list):
             extract(data, word_list=new)
 
 
-# CN server
-for result in re.findall('word_template = (.*?)return', text, re.DOTALL):
-    pg = slpp.decode(result)
-    extract(pg, word_list=[])
-# Other server
+# EN data format
 for result in re.findall('uv0\.{0,1}(.*?)end', text, re.DOTALL):
     pg = slpp.decode('{%s}' % result)
     extract(pg, word_list=[])

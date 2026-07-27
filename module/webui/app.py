@@ -1011,9 +1011,7 @@ class AlasGUI(Frame):
                 else:
                     put_text(t("Gui.Remote.NotEnable"), scope="remote_state")
                 put_text(t("Gui.Remote.ConfigureHint"), scope="remote_info")
-                url = "http://app.azurlane.cloud" + (
-                    "" if State.deploy_config.Language.startswith("zh") else "/en.html"
-                )
+                url = "http://app.azurlane.cloud/en.html"
                 put_html(
                     f'<a href="{url}" target="_blank">{url}</a>', scope="remote_info"
                 )
@@ -1140,17 +1138,8 @@ class AlasGUI(Frame):
             run_js("location.reload()")
 
         with use_scope("content"):
-            put_text("Select your language / 选择语言").style("text-align: center")
-            put_buttons(
-                [
-                    {"label": "简体中文", "value": "zh-CN"},
-                    {"label": "繁體中文", "value": "zh-TW"},
-                    {"label": "English", "value": "en-US"},
-                    {"label": "日本語", "value": "ja-JP"},
-                ],
-                onclick=lambda l: set_language(l),
-            ).style("text-align: center")
-            put_text("Change theme / 更改主题").style("text-align: center")
+            put_text("Language: English").style("text-align: center")
+            put_text("Change theme").style("text-align: center")
             put_buttons(
                 [
                     {"label": "Light", "value": "default", "color": "light"},
@@ -1162,9 +1151,8 @@ class AlasGUI(Frame):
             # show something
             put_markdown(
                 """
-            Alas is a free open source software, if you paid for Alas from any channel, please refund.
-            Alas 是一款免费开源软件，如果你在任何渠道付费购买了Alas，请退款。
-            Project repository 项目地址：`https://github.com/LmeSzinc/AzurLaneAutoScript`
+            Alas is free and open-source software. If you paid for it through any reseller, request a refund.
+            Project repository: `https://github.com/AliceLiddell01/AzurLaneAutoScript`
             """
             ).style("text-align: center")
 

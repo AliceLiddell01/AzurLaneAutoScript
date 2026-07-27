@@ -18,11 +18,11 @@ class BattleStatusStatistics:
             image (np.ndarray):
 
         Returns:
-            str: Enemy name, such as '中型主力舰队'.
+            str: Enemy name, such as 'Medium Main Fleet'.
         """
         result = self.ocr_object.ocr(image)
         # Delete wrong OCR result
-        for letter in '-一个―~(':
+        for letter in '-―~(':
             result = result.replace(letter, '')
 
         return result

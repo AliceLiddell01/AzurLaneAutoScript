@@ -36,7 +36,7 @@ class AssistantHandler:
             AssistantHandler.Asst.load(path, user_dir=path, incremental_path=incremental_path)
         except OSError as e:
             logger.critical(e)
-            logger.critical("MAA加载失败，请检查MAA本体能否正常打开")
+            logger.critical("MAA failed to load; verify that the MAA application starts normally")
             raise RequestHumanTakeover
 
         AssistantHandler.ASST_HANDLER = None
@@ -107,16 +107,16 @@ class AssistantHandler:
 
     def task_end_callback(self, m, d):
         """
-        从MAA的回调中处理任务结束的信息。
+        Handle task-completion information from MAA callbacks.
 
-        所有其他回调处理函数应遵循同样格式，
-        在需要使用的时候加入callback_list，
-        可以被随时移除，或在任务结束时自动清空。
-        参数的详细说明见https://github.com/MaaAssistantArknights/MaaAssistantArknights/blob/master/docs/zh-cn/protocol/callback-schema.md
+        All other callback handlers should follow the same format,
+        be added to callback_list when needed,
+        and may be removed at any time or cleared automatically when the task ends.
+        For parameter details, consult the MAA callback-schema documentation.
 
         Args:
-            m (Message): 消息类型
-            d (dict): 消息详情
+            m (Message): Message type
+            d (dict): Message details
         """
         self.callback_timer.reset()
         if m in [
@@ -372,7 +372,7 @@ class AssistantHandler:
 
             if periods is None:
                 if self.config.MaaCustomInfrast_CustomPeriod == 'null':
-                    logger.critical('无法找到配置文件中的排班周期，请检查文件是否有效')
+                    logger.critical('The schedule period was not found in the configuration file; verify that the file is valid')
                     raise RequestHumanTakeover
                 else:
                     args['plan_index'] = self.config.MaaCustomInfrast_PlanIndex
@@ -391,8 +391,8 @@ class AssistantHandler:
                         now_time = datetime.datetime.now()
                         if start_time <= now_time <= end_time:
                             args['plan_index'] = i
-                            # 处理跨天的情形
-                            # 如："period": [["22:00", "23:59"], ["00:00","06:00"]]
+                            # Handle periods that cross midnight
+                            # Example: "period": [["22:00", "23:59"], ["00:00","06:00"]]
                             if j != len(periods) - 1 and period[1] == '23:59' and periods[j + 1][0] == '00:00':
                                 end_time = datetime.datetime.combine(
                                     datetime.date.today() + datetime.timedelta(days=1),
@@ -412,12 +412,12 @@ class AssistantHandler:
                 self.config.task_delay(target=end_time + datetime.timedelta(minutes=1))
         else:
             if self.config.MaaInfrast_WorkThreshold <= self.config.MaaInfrast_ShiftThreshold:
-                logger.warning('基建换班心情阈值必须小于基建工作心情阈值，请调整基建设置')
+                logger.warning('The base-shift morale threshold must be lower than the working morale threshold')
                 raise RequestHumanTakeover
 
             self.maa_start('Infrast', args)
-            # 根据心情阈值计算下次换班时间
-            # (基建工作心情阈值 - 基建换班心情阈值) / 0.75 * 60
+            # Calculate the next shift time from morale thresholds
+            # (working morale threshold - shift morale threshold) / 0.75 * 60
             t = (self.config.MaaInfrast_WorkThreshold - self.config.MaaInfrast_ShiftThreshold) * 80
             self.config.task_delay(minute=t)
 
@@ -506,12 +506,12 @@ class AssistantHandler:
     def copilot(self):
         filename = self.config.MaaCopilot_FileName
         if filename.startswith('maa://'):
-            logger.info('正在从神秘代码中下载作业')
+            logger.info('Downloading the task definition from its share code')
             r = requests.get(f"https://prts.maa.plus/copilot/get/{filename.strip('maa://')}", timeout=30)
             if r.status_code != 200:
-                logger.critical('作业文件下载失败，请检查神秘代码或网络状况')
+                logger.critical('Task-definition download failed; check the share code and network connection')
                 raise RequestHumanTakeover
-            logger.info('作业下载完毕')
+            logger.info('Task definition downloaded')
 
             r.encoding = 'utf-8'
             buf = json.loads(r.text)['data']['content'].encode('utf-8')
@@ -523,28 +523,28 @@ class AssistantHandler:
         homework = read_file(filename)
         stage = deep_get(homework, keys='stage_name')
         if not stage:
-            logger.critical('作业文件不存在或已经损坏')
+            logger.critical('The task-definition file is missing or corrupted')
             raise RequestHumanTakeover
 
         if self.config.MaaCopilot_Identify:
-            logger.info(deep_get(homework, keys='doc.title', default='标题：无') + '\n')
-            logger.info('\n' + deep_get(homework, keys='doc.details', default='内容：无') + '\n')
+            logger.info(deep_get(homework, keys='doc.title', default='Title: none') + '\n')
+            logger.info('\n' + deep_get(homework, keys='doc.details', default='Details: none') + '\n')
             if deep_get(homework, keys='type') == 'SSS':
                 out = '\n'
                 opers = deep_get(homework, keys='opers')
                 if opers:
-                    out += '核心干员：\n'
+                    out += 'Core operators:\n\n'
                     for oper in opers:
-                        out += f'{oper["name"]}，{oper["skill"]}技能\n'
+                        out += f'{oper["name"]}, skill {oper["skill"]}\n'
                     out += '\n'
 
                 tool_men = deep_get(homework, keys='tool_men')
                 if tool_men:
-                    out += f'工具人：{tool_men}\n\n'
+                    out += f'Support operators: {tool_men}\n\n'
 
                 equipment = deep_get(homework, keys='equipment')
                 if equipment:
-                    out += f'战术装备（横向）：{equipment}\n\n'
+                    out += f'Tactical equipment (horizontal): {equipment}\n\n'
 
                 logger.info(out)
             return

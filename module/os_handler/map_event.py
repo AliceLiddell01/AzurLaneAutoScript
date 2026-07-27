@@ -6,7 +6,7 @@ from module.logger import logger
 from module.os.assets import GLOBE_GOTO_MAP
 from module.os_handler.assets import *
 from module.os_handler.enemy_searching import EnemySearchingHandler
-from module.statistics.azurstats import DropImage
+from module.statistics.drop_record import DropImage
 from module.ui.assets import BACK_ARROW
 from module.ui.switch import Switch
 

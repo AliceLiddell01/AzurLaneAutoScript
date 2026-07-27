@@ -572,7 +572,7 @@ class Map(Fleet):
         from chapter 7 to chapter 9.
 
         Know more (in Chinese simplified):
-        9章道中战最小化路线规划 (Route Planning for battle minimization in chapter 9)
+        Route planning for battle minimization in Chapter 9
         https://wiki.biligame.com/blhx/9%E7%AB%A0%E9%81%93%E4%B8%AD%E6%88%98%E6%9C%80%E5%B0%8F%E5%8C%96%E8%B7%AF%E7%BA%BF%E8%A7%84%E5%88%92
 
         Returns:

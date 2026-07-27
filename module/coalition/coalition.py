@@ -17,7 +17,7 @@ class AcademyPtOcr(Digit):
     def after_process(self, result):
         logger.attr(self.name, result)
         try:
-            # 累计: 840
+            # Cumulative: 840
             result = result.rsplit(':')[1]
         except IndexError:
             pass

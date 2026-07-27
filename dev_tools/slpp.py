@@ -11,9 +11,9 @@ This is my fork of SLPP, https://github.com/LmeSzinc/slpp
 Origin repository here, https://github.com/SirAnthony/slpp
 
 I found some error in it
-lua example: '{点={2={0={叫={醒={我={this=true}}}}}}}'
-wrong result: {'点': {2: [{'叫': {'醒': {'我': {'this': True}}}}]}}
-fixed result: {'点': {2: {0: {'叫': {'醒': {'我': {'this': True}}}}}}}
+lua example: '{point={2={0={wake={me={this=true}}}}}}'
+wrong result: {'point': {2: [{'wake': {'me': {'this': True}}}]}}
+fixed result: {'point': {2: {0: {'wake': {'me': {'this': True}}}}}}
 
 They seems to treat this as a feature not a bug, https://github.com/SirAnthony/slpp/issues/21
 So I made my own fork for Alas.
@@ -62,7 +62,7 @@ class SLPP(object):
             return
         # Game scripts don't have comments
         # Deleting comments may cause error. This will be treat as comment, for example.
-        # `profiles = "现世与梦境夹缝中的蝴蝶，狂风与巨浪蹂躏中的小舟。跨越虚无，驱散黑暗，为重樱带来希望和未来吧---------- ",`
+        # Example profile text containing punctuation and Unicode.
         # reg = re.compile('--.*$', re.M)
         # text = reg.sub('', text, 0)
         self.text = text

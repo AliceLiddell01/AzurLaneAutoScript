@@ -14,7 +14,7 @@ Process: [ 5% ]
 Repository: https://e.coding.net/llop18870/alas/AzurLaneAutoScript.git
 Branch: feature
 PypiMirror: https://pypi.tuna.tsinghua.edu.cn/simple
-Language: zh-CN
+Language: en-US
 Rest of the configs are the same as default
 Process: [ 10% ]
 +---------------------------------------------------+
@@ -102,7 +102,7 @@ DataAdbDevice(serial='127.0.0.1:16384', status='device')
 DataAdbDevice(serial='127.0.0.1:16480', status='device')
 DataAdbDevice(serial='127.0.0.1:7555', status='device')
 Process: [ 100% ]
-中文测试，！@#nfoir
+Unicode test: äöü — !@#nfoir
 """
 
 

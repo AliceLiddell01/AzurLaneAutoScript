@@ -7,8 +7,7 @@ MAP = CampaignMap()
 MAP.shape = 'H5'
 MAP.camera_data = ['D3', 'E2']
 MAP.camera_data_spawn_point = ['D3', 'E2']
-# WIKI的图有错: https://wiki.biligame.com/blhx/6-3
-# G3是出生点, 假图害人
+# The old wiki map was incorrect: G3 is the fleet spawn point.
 MAP.map_data = """
     MB -- ME SP -- ME ME MM
     ME -- -- ++ ++ -- ME --

@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 from scipy import signal
 
-import module.config.server as server
 from module.base.button import ButtonGrid
 from module.base.decorator import cached_property, del_cached_property
 from module.base.timer import Timer
@@ -61,10 +60,7 @@ class ShopPriceOcr(DigitYuv):
 
 
 PRICE_OCR = ShopPriceOcr([], letter=(255, 223, 57), threshold=32, name='Price_ocr')
-if server.server == 'jp':
-    PRICE_OCR_250814 = Digit([], lang='cnocr', letter=(235, 235, 255), threshold=128, name='Price_ocr')
-else:
-    PRICE_OCR_250814 = Digit([], letter=(255, 255, 255), threshold=128, name='Price_ocr')
+PRICE_OCR_250814 = Digit([], letter=(255, 255, 255), threshold=128, name='Price_ocr')
 TEMPLATE_MEDAL_ICON = Template('./assets/shop/cost/Medal.png')
 TEMPLATE_MEDAL_ICON_2 = Template('./assets/shop/cost/Medal_2.png')
 TEMPLATE_MEDAL_ICON_3 = Template('./assets/shop/cost/Medal_3.png')

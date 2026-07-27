@@ -115,31 +115,12 @@ class DeployConfig(ConfigModel):
         """
         Redirect deploy config, must be called after each `read()`
         """
-        if self.Repository in [
-            'https://gitee.com/LmeSzinc/AzurLaneAutoScript',
-            'https://gitee.com/lmeszinc/azur-lane-auto-script-mirror',
-            'https://e.coding.net/llop18870/alas/AzurLaneAutoScript.git',
-            'https://e.coding.net/saarcenter/alas/AzurLaneAutoScript.git',
-            'https://git.saarcenter.com/LmeSzinc/AzurLaneAutoScript.git',
-        ]:
-            self.Repository = 'git://git.lyoko.io/AzurLaneAutoScript'
-            self.config['Repository'] = 'git://git.lyoko.io/AzurLaneAutoScript'
-        if self.PypiMirror in [
-            'https://pypi.tuna.tsinghua.edu.cn/simple'
-        ]:
-            self.PypiMirror = 'https://mirrors.aliyun.com/pypi/simple'
-            self.config['PypiMirror'] = 'https://mirrors.aliyun.com/pypi/simple'
 
         # Bypass webui.config.DeployConfig.__setattr__()
         # Don't write these into deploy.yaml
-        super().__setattr__(
-            'GitOverCdn',
-            self.Repository == 'git://git.lyoko.io/AzurLaneAutoScript' and self.Branch == 'master'
-        )
+        super().__setattr__('GitOverCdn', False)
         if self.Repository in ['global']:
             super().__setattr__('Repository', 'https://github.com/LmeSzinc/AzurLaneAutoScript')
-        if self.Repository in ['cn']:
-            super().__setattr__('Repository', 'git://git.lyoko.io/AzurLaneAutoScript')
 
     def filepath(self, key):
         """

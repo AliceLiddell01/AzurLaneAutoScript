@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 import module.config.server as server
 
-server.server = 'cn'  # Don't need to edit, it's used to avoid error.
+server.server = 'en'  # Don't need to edit, it's used to avoid error.
 
 from dev_tools.relative_record import FOLDER, NAME
 from module.base.utils import *

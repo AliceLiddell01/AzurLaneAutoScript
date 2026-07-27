@@ -295,7 +295,7 @@ class RewardResearch(ResearchSelector, ResearchQueue, StorageHandler):
                   False if project requirements are not satisfied.
         """
         logger.hr('Research receive', level=3)
-        with self.stat.new(
+        with self.drop_record.new(
                 genre='research', method=self.config.DropRecord_ResearchRecord
         ) as record:
             # Take screenshots of project list
@@ -356,7 +356,7 @@ class RewardResearch(ResearchSelector, ResearchQueue, StorageHandler):
         """
         logger.hr('Queue receive', level=1)
         total = 0
-        with self.stat.new(
+        with self.drop_record.new(
                 genre='research', method=self.config.DropRecord_ResearchRecord
         ) as drop:
             # Take screenshots of project list
@@ -481,7 +481,7 @@ class RewardResearch(ResearchSelector, ResearchQueue, StorageHandler):
         """
         logger.hr('Research fill queue', level=1)
         total = 0
-        with self.stat.new(
+        with self.drop_record.new(
                 genre='research', method=self.config.DropRecord_ResearchRecord
         ) as drop:
             for _ in range(5):

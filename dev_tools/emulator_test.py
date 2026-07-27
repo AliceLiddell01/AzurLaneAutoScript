@@ -7,7 +7,7 @@ import numpy as np
 print(os.getcwd())
 import module.config.server as server
 
-server.server = 'cn'  # Don't need to edit, it's used to avoid error.
+server.server = 'en'  # Don't need to edit, it's used to avoid error.
 
 from module.config.config import AzurLaneConfig
 from module.device.device import Device

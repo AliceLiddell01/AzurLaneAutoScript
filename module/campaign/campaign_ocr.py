@@ -1,7 +1,7 @@
 import collections
 
 from module.base.base import ModuleBase
-from module.base.decorator import Config, cached_property, del_cached_property
+from module.base.decorator import cached_property, del_cached_property
 from module.base.timer import Timer
 from module.base.utils import *
 from module.exception import CampaignNameError
@@ -132,7 +132,6 @@ class CampaignOcr(ModuleBase):
     def _stage_image_gray(self):
         return rgb2gray(self._stage_image)
 
-    @Config.when(SERVER='en')
     def campaign_extract_name_image(self, image):
         digits = []
 
@@ -185,79 +184,6 @@ class CampaignOcr(ModuleBase):
 
         return digits
 
-    @Config.when(SERVER=None)
-    def campaign_extract_name_image(self, image):
-        """
-        Find all stage entrance and handle event differences.
-        Stage entrance setting, refers to ManualConfig.STAGE_ENTRANCE
-
-        Args:
-            image: Screenshot
-
-        Returns:
-            list[Button]: List of Buttons of stage entrance.
-        """
-        digits = []
-
-        if 'normal' in self.config.STAGE_ENTRANCE:
-            digits += self.campaign_match_multi(
-                TEMPLATE_STAGE_CLEAR,
-                image, self._stage_image_gray,
-                name_offset=(75, 9), name_size=(60, 16)
-            )
-            # 2024.04.11 Game client bugged with random broken assets around TEMPLATE_STAGE_CLEAR
-            # digits += self.campaign_match_multi(
-            #     TEMPLATE_STAGE_CLEAR_SMALL,
-            #     image, self._stage_image_gray,
-            #     name_offset=(53, 2), name_size=(60, 16)
-            # )
-            # digits += self.campaign_match_multi(
-            #     TEMPLATE_STAGE_HALF_PERCENT,
-            #     image, self._stage_image_gray,
-            #     name_offset=(48, 0), name_size=(60, 16)
-            # )
-            digits += self.campaign_match_multi(
-                TEMPLATE_STAGE_PERCENT,
-                image, self._stage_image_gray,
-                name_offset=(48, 0), name_size=(60, 16)
-            )
-        if 'half' in self.config.STAGE_ENTRANCE:
-            digits += self.campaign_match_multi(
-                TEMPLATE_STAGE_HALF_PERCENT,
-                image, self._stage_image_gray,
-                name_offset=(48, 0), name_size=(60, 16)
-            )
-        if 'blue' in self.config.STAGE_ENTRANCE:
-            digits += self.campaign_match_multi(
-                TEMPLATE_STAGE_BLUE_PERCENT,
-                image, extract_letters(self._stage_image, letter=(255, 255, 255), threshold=153),
-                name_offset=(55, 0), name_size=(60, 16)
-            )
-            digits += self.campaign_match_multi(
-                TEMPLATE_STAGE_BLUE_CLEAR,
-                image, extract_letters(self._stage_image, letter=(99, 223, 239), threshold=153),
-                name_offset=(60, 12), name_size=(60, 16)
-            )
-        if 'green' in self.config.STAGE_ENTRANCE:
-            digits += self.campaign_match_multi(
-                TEMPLATE_STAGE_GREEN_CLEAR,
-                image, self._stage_image_gray,
-                name_offset=(60, 0), name_size=(60, 22)
-            )
-            digits += self.campaign_match_multi(
-                TEMPLATE_STAGE_PERCENT,
-                image, self._stage_image_gray,
-                similarity=0.6,
-                name_offset=(52, 0), name_size=(60, 22)
-            )
-        if '20240725' in self.config.STAGE_ENTRANCE:
-            digits += self.campaign_match_multi(
-                TEMPLATE_STAGE_CLEAR_20240725,
-                image, self._stage_image_gray,
-                name_offset=(73, -4), name_size=(60, 22)
-            )
-
-        return digits
 
     @staticmethod
     def _extract_stage_name(image):

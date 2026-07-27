@@ -1,6 +1,6 @@
 import module.config.server as server
 
-server.server = 'cn'  # Don't need to edit, it's used to avoid error.
+server.server = 'en'  # Don't need to edit, it's used to avoid error.
 
 import numpy as np
 from PIL import Image

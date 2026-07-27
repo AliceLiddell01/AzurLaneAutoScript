@@ -53,14 +53,14 @@ class AlOcr(CnOcr):
              ):
         """
 
-        :param model_name: 模型名称
-        :param model_epoch: 模型迭代次数
-        :param cand_alphabet: 待识别字符所在的候选集合。默认为 `None`，表示不限定识别字符范围
-        :param root: 模型文件所在的根目录。
-            Linux/Mac下默认值为 `~/.cnocr`，表示模型文件所处文件夹类似 `~/.cnocr/1.1.0/conv-lite-fc-0027`。
-            Windows下默认值为 ``。
-        :param context: 'cpu', or 'gpu'。表明预测时是使用CPU还是GPU。默认为CPU。
-        :param name: 正在初始化的这个实例名称。如果需要同时初始化多个实例，需要为不同的实例指定不同的名称。
+        :param model_name: Model name
+        :param model_epoch: Model training epoch
+        :param cand_alphabet: Candidate recognition alphabet. None means no explicit alphabet restriction
+        :param root: Root directory containing model files.
+            On Linux/macOS the default is `~/.cnocr`, for example `~/.cnocr/1.1.0/conv-lite-fc-0027`.
+            On Windows the default is an empty path.
+        :param context: 'cpu' or 'gpu'; selects the inference device. Defaults to CPU.
+        :param name: Instance name. Use unique names when initializing multiple instances.
         """
         check_model_name(model_name)
         self._model_name = model_name
@@ -80,7 +80,7 @@ class AlOcr(CnOcr):
         self._hp = Hyperparams()
         self._hp._loss_type = None  # infer mode
         self._hp._num_classes = len(self._alphabet)
-        # 传入''的话，也改成传入None
+        # Normalize an empty string to None.
         self._net_prefix = None if name == '' else name
 
         self._mod = self._get_module(AlOcr.CNOCR_CONTEXT)

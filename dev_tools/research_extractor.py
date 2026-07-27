@@ -48,49 +48,15 @@ class Project:
         return str(data)
 
 
-# Key: chinese, value: english
-DIC_TRANSLATION = {
-    '蓝图：安克雷奇': 'Blueprint - Anchorage',
-    '蓝图：{namecode:204}': 'Blueprint - Hakuryuu',
-    '蓝图：埃吉尔': 'Blueprint - Ägir',
-    '蓝图：奥古斯特·冯·帕塞瓦尔': 'Blueprint - August von Parseval',
-    '蓝图：马可波罗': 'Blueprint - Marco Polo',
-    '蓝图：瓦尔帕莱索': 'Blueprint - Valparaíso',
-    '蓝图：{namecode:565}': 'Blueprint - Max Immelmann',
-    '蓝图：邓肯': 'Blueprint - Duncan',
-    '蓝图：{namecode:313}': 'Blueprint - Takahashi',
-    '蓝图：暴风雨': 'Blueprint - Orage',
-}
-
-
-def set_translation(cn, en):
-    if len(cn) and len(en):
-        if cn not in DIC_TRANSLATION:
-            DIC_TRANSLATION[cn] = en
-
 
 class TechnologyTemplate:
     def __init__(self):
-        self.projects = self.load_projects(LuaLoader(FOLDER, server='zh-CN'))
-        en_projects = self.load_projects(LuaLoader(FOLDER, server='en-US'))
-
-        for key, project in self.projects.items():
-            if key not in en_projects:
-                continue
-            en_project = en_projects[key]
-            set_translation(cn=project.task.name, en=en_project.task.name)
-            for item, en_item in zip(project.input, en_project.input):
-                set_translation(cn=item.name, en=en_item.name)
-            for item, en_item in zip(project.output, en_project.output):
-                set_translation(cn=item.name, en=en_item.name)
-
+        self.projects = self.load_projects(LuaLoader(FOLDER, server='en-US'))
         for project in self.projects.values():
-            project.task.name = DIC_TRANSLATION.get(project.task.name, project.task.name)
             for item in project.input:
-                # Change Ägir to Agir, Valparaíso to Valparaiso
-                item.name = DIC_TRANSLATION.get(item.name, item.name).replace('Ä', 'A').replace('í', 'i')
+                item.name = item.name.replace('Ä', 'A').replace('í', 'i')
             for item in project.output:
-                item.name = DIC_TRANSLATION.get(item.name, item.name).replace('Ä', 'A').replace('í', 'i')
+                item.name = item.name.replace('Ä', 'A').replace('í', 'i')
 
     def load_projects(self, loader):
         tech = loader.load('sharecfg/technology_data_template.lua')

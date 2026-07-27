@@ -12,24 +12,24 @@ class Asst:
     CallBackType = ctypes.CFUNCTYPE(
         None, ctypes.c_int, ctypes.c_char_p, ctypes.c_void_p)
     """
-    回调函数，使用实例可参照 my_callback
+    Callback function; see my_callback for an example
 
     :params:
-        ``param1 message``: 消息类型
+        ``param1 message``: Message type
         ``param2 details``: json string
-        ``param3 arg``:     自定义参数
+        ``param3 arg``:     Custom argument
     """
 
     @staticmethod
     def load(path: Union[pathlib.Path, str], incremental_path: Optional[Union[pathlib.Path, str, list]] = None,
              user_dir: Optional[Union[pathlib.Path, str]] = None) -> bool:
         """
-        加载 dll 及资源
+        Load the DLL and resources
 
         :params:
-            ``path``:    DLL及资源所在文件夹路径
-            ``incremental_path``:   增量资源所在文件夹路径
-            ``user_dir``:   用户数据（日志、调试图片等）写入文件夹路径
+            ``path``:    Directory containing the DLL and resources
+            ``incremental_path``:   Directory containing incremental resources
+            ``user_dir``:   Directory for user data such as logs and debug images
         """
 
         platform_values = {
@@ -80,8 +80,8 @@ class Asst:
     def __init__(self, callback: CallBackType = None, arg=None):
         """
         :params:
-            ``callback``:   回调函数
-            ``arg``:        自定义参数
+            ``callback``:   Callback function
+            ``arg``:        Custom argument
         """
 
         if callback:
@@ -95,28 +95,28 @@ class Asst:
 
     def set_instance_option(self, option_type: InstanceOptionType, option_value: str):
         """
-        设置额外配置
-        参见${MaaAssistantArknights}/src/MaaCore/Assistant.cpp#set_instance_option
+        Set an additional option
+        See ${MaaAssistantArknights}/src/MaaCore/Assistant.cpp#set_instance_option
 
         :params:
-            ``externa_config``: 额外配置类型
-            ``config_value``:   额外配置的值
+            ``externa_config``: Additional option type
+            ``config_value``:   Additional option value
 
-        :return: 是否设置成功
+        :return: Whether the option was set successfully
         """
         return Asst.__lib.AsstSetInstanceOption(self.__ptr,
                                                 int(option_type), option_value.encode('utf-8'))
 
     def connect(self, adb_path: str, address: str, config: str = 'General'):
         """
-        连接设备
+        Connect to a device
 
         :params:
-            ``adb_path``:       adb 程序的路径
-            ``address``:        adb 地址+端口
-            ``config``:         adb 配置，可参考 resource/config.json
+            ``adb_path``:       Path to the adb executable
+            ``address``:        ADB address and port
+            ``config``:         ADB configuration; see resource/config.json
 
-        :return: 是否连接成功
+        :return: Whether the connection succeeded
         """
         return Asst.__lib.AsstConnect(self.__ptr,
                                       adb_path.encode('utf-8'), address.encode('utf-8'), config.encode('utf-8'))
@@ -125,70 +125,70 @@ class Asst:
 
     def append_task(self, type_name: str, params: JSON = {}) -> TaskId:
         """
-        添加任务
+        Append a task
 
         :params:
-            ``type_name``:  任务类型，请参考 docs/集成文档.md
-            ``params``:     任务参数，请参考 docs/集成文档.md
+            ``type_name``:  Task type; see the integration documentation
+            ``params``:     Task parameters; see the integration documentation
 
-        :return: 任务 ID, 可用于 set_task_params 接口
+        :return: Task ID for use with set_task_params
         """
         return Asst.__lib.AsstAppendTask(self.__ptr, type_name.encode('utf-8'),
                                          json.dumps(params, ensure_ascii=False).encode('utf-8'))
 
     def set_task_params(self, task_id: TaskId, params: JSON) -> bool:
         """
-        动态设置任务参数
+        Update task parameters dynamically
 
         :params:
-            ``task_id``:  任务 ID, 使用 append_task 接口的返回值
-            ``params``:   任务参数，同 append_task 接口，请参考 docs/集成文档.md
+            ``task_id``:  Task ID returned by append_task
+            ``params``:   Task parameters as accepted by append_task; see the integration documentation
 
-        :return: 是否成功
+        :return: Whether the operation succeeded
         """
         return Asst.__lib.AsstSetTaskParams(self.__ptr, task_id, json.dumps(params, ensure_ascii=False).encode('utf-8'))
 
     def start(self) -> bool:
         """
-        开始任务
+        Start tasks
 
-        :return: 是否成功
+        :return: Whether the operation succeeded
         """
         return Asst.__lib.AsstStart(self.__ptr)
 
     def stop(self) -> bool:
         """
-        停止并清空所有任务
+        Stop and clear all tasks
 
-        :return: 是否成功
+        :return: Whether the operation succeeded
         """
         return Asst.__lib.AsstStop(self.__ptr)
 
     def running(self) -> bool:
         """
-        是否正在运行
+        Whether the assistant is running
 
-        :return: 是否正在运行
+        :return: Whether the assistant is running
         """
         return Asst.__lib.AsstRunning(self.__ptr)
 
     @staticmethod
     def log(level: str, message: str) -> None:
         """
-        打印日志
+        Write a log entry
 
         :params:
-            ``level``:      日志等级标签
-            ``message``:    日志内容
+            ``level``:      Log-level label
+            ``message``:    Log message
         """
 
         Asst.__lib.AsstLog(level.encode('utf-8'), message.encode('utf-8'))
 
     def get_version(self) -> str:
         """
-        获取DLL版本号
+        Get the DLL version
 
-        : return: 版本号
+        : return: Version string
         """
         return Asst.__lib.AsstGetVersion().decode('utf-8')
 

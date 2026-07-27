@@ -12,14 +12,12 @@ class LuaLoader:
     """
 
     server_alias = [
-        ['zh-CN', 'zh-cn', 'cn', 'CN'],
         ['en-US', 'en-us', 'en', 'EN'],
-        ['ja-JP', 'ja-jp', 'jp', 'JP'],
-        ['zh-TW', 'zh-tw', 'tw', 'TW'],
+        # KR tooling is outside the CN/JP/TW removal scope and is not a runtime target.
         ['ko-KR', 'ko-kr', 'kr', 'KR'],
     ]
 
-    def __init__(self, folder, server='zh-CN'):
+    def __init__(self, folder, server='en-US'):
         self.folder = folder
         self._server = ''
         self.server = server

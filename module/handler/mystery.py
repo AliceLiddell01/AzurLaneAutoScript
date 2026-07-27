@@ -17,7 +17,7 @@ class MysteryHandler(StrategyHandler, EnemySearchingHandler):
             button (optional): Button to click when get_items.
                 Can be destination grid which makes the bot more like human.
         """
-        with self.stat.new(
+        with self.drop_record.new(
                 genre=self.config.campaign_name, method=self.config.DropRecord_CombatRecord
         ) as drop:
             if self.handle_mystery_items(button=button, drop=drop):

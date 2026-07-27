@@ -118,19 +118,12 @@ class Updater(DeployConfig, GitManager, PipManager):
         r = self.Repository.split("/")
         owner = r[3]
         repo = r[4]
-        if "gitee" in r[2]:
-            base = "https://gitee.com/api/v5/repos/"
-            headers = {}
-            token = self.config["ApiToken"]
-            if token:
-                para = {"access_token": token}
-        else:
-            base = "https://api.github.com/repos/"
-            headers = {"Accept": "application/vnd.github.v3.sha"}
-            para = {}
-            token = self.config["ApiToken"]
-            if token:
-                headers["Authorization"] = "token " + token
+        base = "https://api.github.com/repos/"
+        headers = {"Accept": "application/vnd.github.v3.sha"}
+        para = {}
+        token = self.config["ApiToken"]
+        if token:
+            headers["Authorization"] = "token " + token
 
         try:
             list_commit = requests.get(

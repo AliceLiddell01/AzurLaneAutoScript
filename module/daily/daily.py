@@ -1,6 +1,5 @@
 import numpy as np
 
-import module.config.server as server
 from module.base.utils import get_color
 from module.combat.assets import BATTLE_PREPARATION
 from module.combat.combat import Combat
@@ -11,10 +10,7 @@ from module.ui.assets import BACK_ARROW, DAILY_CHECK
 from module.ui.page import page_campaign_menu, page_daily
 
 DAILY_MISSION_LIST = [DAILY_MISSION_1, DAILY_MISSION_2, DAILY_MISSION_3]
-if server.server != 'jp':
-    OCR_REMAIN = Digit(OCR_REMAIN, threshold=128, alphabet='01234')
-else:
-    OCR_REMAIN = Digit(OCR_REMAIN, letter=(222, 223, 222), threshold=128, alphabet='01234')
+OCR_REMAIN = Digit(OCR_REMAIN, threshold=128, alphabet='01234')
 OCR_DAILY_FLEET_INDEX = Digit(OCR_DAILY_FLEET_INDEX, letter=(90, 154, 255), threshold=128, alphabet='123456')
 
 
@@ -64,13 +60,13 @@ class Daily(Combat):
         """
         if self.emergency_module_development:
             # Meaning of daily_current
-            # 1 Emergency Module Development 限时兵装训练
-            # 2 Escort Mission 商船护送
-            # 3 Advance Mission 海域突进
-            # 4 Fierce Assault 斩首行动
-            # 5 Tactical Training 战术研修
-            # 6 Supply Line Disruption 破交作战
-            # 7 Module Development 兵装训练
+            # 1 Emergency Module Development
+            # 2 Escort Mission
+            # 3 Advance Mission
+            # 4 Fierce Assault
+            # 5 Tactical Training
+            # 6 Supply Line Disruption
+            # 7 Module Development
             fleets = [
                 0,
                 self.config.Daily_EmergencyModuleDevelopmentFleet,
@@ -95,13 +91,13 @@ class Daily(Combat):
             ]
         else:
             # Meaning of daily_current
-            # 1 Tactical Training 战术研修
-            # 2 Supply Line Disruption 破交作战
-            # 3 Module Development 兵装训练
+            # 1 Tactical Training
+            # 2 Supply Line Disruption
+            # 3 Module Development
             # 4 (not open)
-            # 5 Escort Mission 商船护送
-            # 6 Advance Mission 海域突进
-            # 7 Fierce Assault 斩首行动
+            # 5 Escort Mission
+            # 6 Advance Mission
+            # 7 Fierce Assault
             fleets = [
                 0,
                 self.config.Daily_TacticalTrainingFleet,
@@ -313,7 +309,7 @@ class Daily(Combat):
                 self.daily_execute(remain=remain, stage=stage, fleet=fleet)
                 self.daily_check()
                 # The order of daily tasks will be disordered after execute a daily, exit and re-enter to reset.
-                # 打完一次之后每日任务的顺序会乱掉, 退出再进入来重置顺序.
+                # After one run the daily-task order may change; re-enter to reset it.
                 self.ui_goto(page_campaign_menu)
                 break
 
