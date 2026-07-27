@@ -167,7 +167,7 @@ class VirtualBoxEmulator:
                 logger.info(f'Not exists {bak}, skip')
 
 
-# NoxPlayer 夜神模拟器
+# NoxPlayer
 nox_player = VirtualBoxEmulator(
     name="Nox",
     root_path=".",
@@ -182,7 +182,7 @@ nox_player_64 = VirtualBoxEmulator(
     vbox_path="./BignoxVMS",
     vbox_name='.*.vbox$'
 )
-# LDPlayer 雷电模拟器
+# LDPlayer
 ld_player = VirtualBoxEmulator(
     name="LDPlayer",
     root_path=".",
@@ -204,7 +204,7 @@ ld_player_9 = VirtualBoxEmulator(
     vbox_path="./vms",
     vbox_name='.*.vbox$'
 )
-# MemuPlayer 逍遥模拟器
+# MEmuPlayer
 memu_player = VirtualBoxEmulator(
     name="MEmu",
     root_path="../",
@@ -212,7 +212,7 @@ memu_player = VirtualBoxEmulator(
     vbox_path="./MemuHyperv VMs",
     vbox_name='.*.memu$'
 )
-# MumuPlayer MuMu模拟器
+# MuMuPlayer
 mumu_player = VirtualBoxEmulator(
     name="Nemu",
     root_path=".",
@@ -303,11 +303,11 @@ class EmulatorConnect:
         for exe in [
             # Most emulator use this
             'adb.exe',
-            # NoxPlayer 夜神模拟器
+            # NoxPlayer
             'nox_adb.exe',
-            # MumuPlayer MuMu模拟器
+            # MuMuPlayer
             'adb_server.exe',
-            # Bluestacks 蓝叠模拟器
+            # BlueStacks
             'HD-Adb.exe'
         ]:
             ret_code = self._execute(['taskkill', '/f', '/im', exe], output=False)

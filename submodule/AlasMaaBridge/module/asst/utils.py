@@ -5,11 +5,11 @@ JSON = Union[Dict[str, Any], List[Any], int, str, float, bool, Type[None]]
 
 
 class InstanceOptionType(IntEnum):
-    # 触控模式设置， "minitouch" | "maatouch" | "adb"
+    # Touch-mode setting， "minitouch" | "maatouch" | "adb"
     touch_type = 2
-    # 自动战斗、肉鸽、保全 是否使用 暂停下干员， "0" | "1"
+    # Whether auto battle, roguelike, and SSS may deploy operators while paused， "0" | "1"
     deployment_with_pause = 3
-    # 是否使用 AdbLite， "0" | "1"
+    # Whether to use AdbLite， "0" | "1"
     adblite_enabled = 4
     kill_on_adb_exit = 5
 
@@ -23,9 +23,9 @@ class StaticOptionType(IntEnum):
 @unique
 class Message(Enum):
     """
-    回调消息
+    Callback message
 
-    请参考 docs/回调消息.md
+    See the callback-message documentation
     """
     InternalError = 0
 
@@ -63,7 +63,7 @@ class Message(Enum):
 @unique
 class Version(Enum):
     """
-    目标版本
+    Target version
     """
     Nightly = auto()
 

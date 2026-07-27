@@ -37,7 +37,7 @@ def main(ppid, spid, kill=""):
     therefore, I choose to open another process, once the father dead, kill the son as well
     So called orphanSlayer
 
-    Lme曰：「你可以通过经常拉屎，来结交朋友（」
+    Historical maintainer joke removed from the English-only source.」
     """
     while isProcessExist(ppid):
         time.sleep(1)

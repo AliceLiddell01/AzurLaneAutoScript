@@ -142,14 +142,14 @@ class PrivateQuarters(PQInteract, PQShop):
             if 'en' not in ['tw']:
                 self.pq_shop_weekly_items()
             else:
-                logger.info(f'Private Quarters shop not supported for {'en'} server.')
+                logger.info(f'Private Quarters shop not supported for en server.')
 
         # Interact with target if enabled
         if target_interact:
             # Ensure target is supported for server
             # Update `not_supported_filter` to enable a target
             if target_ship in self.not_supported_filter:
-                logger.info(f'Target ship:{target_ship} not supported for {'en'} server.')
+                logger.info(f'Target ship:{target_ship} not supported for en server.')
                 return
 
             # Pull count here, exit run if = 0

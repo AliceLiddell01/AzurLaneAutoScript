@@ -29,14 +29,14 @@ class Updater:
     @staticmethod
     def custom_print(s):
         """
-        可以被monkey patch的print，在其他GUI上使用可以被替换为任何需要的输出
+        A monkey-patchable print function that other GUIs may replace
         """
         print(s)
 
     @staticmethod
     def _get_cur_version(path, q):
         """
-        获取当前版本
+        Get the current version
         """
         Asst.load(path=path)
         q.put(Asst().get_version())
@@ -48,7 +48,7 @@ class Updater:
         self.latest_version = None
         self.assets_object = None
 
-        # 使用子线程获取当前版本后关闭，避免占用dll
+        # Query the current version in a child thread, then close it to release the DLL
         q = queues.Queue(1, ctx=multiprocessing)
         p = Process(target=self._get_cur_version, args=(path, q,))
         p.start()
@@ -63,10 +63,10 @@ class Updater:
                 try:
                     response = request.urlopen(Request(url=resource + url, headers=Updater.headers), timeout=20)
                     data = response.read().decode('utf-8')
-                    Updater.custom_print(f'访问成功，URL: {resource + url}')
+                    Updater.custom_print(f'Request succeeded, URL: {resource + url}')
                     return data
                 except (HTTPError, URLError) as e:
-                    Updater.custom_print(f'访问成功，URL: {resource + url}')
+                    Updater.custom_print(f'Request succeeded, URL: {resource + url}')
                     Updater.custom_print(e)
                     if _ == retry - 1:
                         raise
@@ -184,7 +184,7 @@ class Updater:
 
     def _remove_file(self):
         def remove_with_print(s):
-            self.custom_print(f'删除文件：{s}')
+            self.custom_print(f'Delete file: {s}')
             os.remove(s)
 
         removelist_path = os.path.join(self.path, 'removelist.txt')
@@ -196,7 +196,7 @@ class Updater:
                     if os.path.isfile(file_path):
                         remove_with_print(file_path)
                     elif os.path.isdir(file_path):
-                        self.custom_print(f'删除文件夹：{file_path}')
+                        self.custom_print(f'Delete directory: {file_path}')
                         rmtree(file_path)
                 f.close()
             remove_with_print(removelist_path)
@@ -211,14 +211,14 @@ class Updater:
 
     def update(self):
         """
-        更新主函数
+        Main update routine
         """
         max_retry = 3
         if not self._check_update():
-            Updater.custom_print('目前不需要更新')
+            Updater.custom_print('No update is currently required')
             return False
 
-        # 下载
+        # Download
         replace_list = [
             ('github.com', 'ota.maa.plus'),
             ('github.com', 'download.fastgit.org')
@@ -229,19 +229,19 @@ class Updater:
             if i < 2:
                 url = url.replace(replace_list[i][0], replace_list[i][1])
                 try:
-                    Updater.custom_print(f'开始下载更新包，URL：{url}')
+                    Updater.custom_print(f'Downloading update package, URL: {url}')
                     request.urlretrieve(url, file)
                     break
                 except (HTTPError, URLError) as e:
                     Updater.custom_print(e)
 
-        # 解压
-        Updater.custom_print('开始安装更新，请不要关闭')
+        # Extract
+        Updater.custom_print('Installing the update; do not close the application')
         zfile = zipfile.ZipFile(file, 'r')
         zfile.extractall(self.path)
         zfile.close()
 
-        # 删除
+        # Cleanup
         self._remove_file()
 
-        Updater.custom_print('更新完成')
+        Updater.custom_print('Update complete')

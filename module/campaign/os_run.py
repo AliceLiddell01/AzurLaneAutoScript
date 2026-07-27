@@ -72,7 +72,7 @@ class OSCampaignRun(OSMapOperation):
 
     def opsi_month_boss(self):
         if 'en' in ['tw']:
-            logger.info(f'OpsiMonthBoss is not supported in {'en'},'
+            logger.info(f'OpsiMonthBoss is not supported in en,'
                         ' please contact server maintainers')
             self.config.task_delay(server_update=True)
             self.config.task_stop()

@@ -75,11 +75,11 @@ class ArknightsAutoScript(AzurLaneAutoScript):
             logger.info(f'MaaEmulator_MaaPath: {self.config.MaaEmulator_MaaPath} is revised to {path}')
             self.config.MaaEmulator_MaaPath = path
 
-        logger.info(f'MAA安装路径：{self.config.MaaEmulator_MaaPath}')
+        logger.info(f'MAA installation path: {self.config.MaaEmulator_MaaPath}')
         if not os.path.exists(self.config.MaaEmulator_MaaPath):
             logger.critical(
-                f'未找到路径 {self.config.MaaEmulator_MaaPath}，请确认MAA已安装在该路径。'
-                f'如果你是第一次使用MAA插件，需要自选安装MAA，并在 "MAA设置" - "MAA安装路径" 中填入MAA的安装路径')
+                f'Path {self.config.MaaEmulator_MaaPath} was not found. Confirm that MAA is installed there.'
+                f'For first-time setup, install MAA and enter its path under MAA Settings > MAA Installation Path')
             raise RequestHumanTakeover
         try:
             incremental_path = [os.path.join(self.config.MaaEmulator_MaaPath, './cache')]
@@ -94,14 +94,14 @@ class ArknightsAutoScript(AzurLaneAutoScript):
                 )
             AssistantHandler.load(self.config.MaaEmulator_MaaPath, incremental_path)
         except ModuleNotFoundError:
-            logger.critical('找不到MAA，请检查安装路径是否正确')
+            logger.critical('MAA was not found; verify the installation path')
             raise RequestHumanTakeover
         except OSError as e:
-            # OSError: [WinError 126] 找不到指定的模块。
+            # OSError: [WinError 126] The specified module could not be found.
             if '[WinError 126]' in str(e):
                 logger.exception(e)
                 logger.critical(
-                    f'无法导入MAA，请确认MAA已正确安装在 {self.config.MaaEmulator_MaaPath}'
+                    f'Unable to import MAA; confirm it is correctly installed at {self.config.MaaEmulator_MaaPath}'
                 )
                 raise RequestHumanTakeover
             else:
@@ -133,7 +133,7 @@ class ArknightsAutoScript(AzurLaneAutoScript):
             if self.config.MaaEmulator_TouchMethod == 'maatouch':
                 asst.set_instance_option(AssistantHandler.InstanceOptionType.deployment_with_pause, '1')
             else:
-                logger.critical('使用了不支持暂停下干员的触控方案')
+                logger.critical('The selected touch method does not support deploying operators while paused')
                 raise RequestHumanTakeover
 
         return asst

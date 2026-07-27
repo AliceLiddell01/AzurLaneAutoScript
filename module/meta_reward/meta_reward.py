@@ -192,7 +192,7 @@ class BeaconReward(Combat, UI):
         if 'en' in ['cn', 'en', 'jp']:
             pass
         else:
-            logger.info(f'MetaReward is not supported in {'en'}, please contact server maintainers')
+            logger.info(f'MetaReward is not supported in en, please contact server maintainers')
             return
 
         self.ui_ensure(page_meta)
@@ -304,7 +304,7 @@ class DossierReward(Combat, UI):
         if 'en' in ['cn', 'en', 'jp']:
             pass
         else:
-            logger.info(f'MetaReward is not supported in {'en'}, please contact server maintainers')
+            logger.info(f'MetaReward is not supported in en, please contact server maintainers')
             return
 
         from module.os_ash.meta import OpsiAshBeacon

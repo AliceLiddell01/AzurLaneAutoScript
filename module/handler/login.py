@@ -1,11 +1,5 @@
-from typing import Union
-
 import numpy as np
 from scipy.signal import find_peaks
-from uiautomator2 import UiObject
-from uiautomator2.exceptions import XPathElementNotFoundError
-from uiautomator2.xpath import XPath, XPathSelector
-
 from module.base.timer import Timer
 from module.base.utils import color_similarity_2d, crop
 from module.handler.assets import *
@@ -203,62 +197,3 @@ class LoginHandler(UI):
                 continue
 
         self.ui_goto_main()
-
-    def handle_user_agreement(self, xp, hierarchy):
-        """
-        For CN only.
-        CN client is bugged. User Agreement and Privacy Policy may popup again even you have agreed with it.
-        This method scrolls to the bottom and click AGREE.
-
-        Returns:
-            bool: If handled.
-        """
-
-        pass
-
-    def handle_user_login(self, xp, hierarchy) -> bool:
-        login_wait_results = self.get_for_any_ele([
-            XPS('//*[@text="登录"]', xp, hierarchy),
-            XPS('//*[@content-desc="登录"]', xp, hierarchy)])
-        if login_wait_results is False:
-            return False
-        else:
-            USER_LOGIN_BTN = Button(area=login_wait_results, color=(), button=login_wait_results, name='USER_LOGIN_BTN')
-            self.device.click(USER_LOGIN_BTN)
-            return True
-
-    @staticmethod
-    def get_for_any_ele(list_u2_path: list) -> Union[bool, tuple]:
-        """
-        Args:
-            list_u2_path (list): [UiObject or XPathSelector]  In this case, len(list_u2_path) >= 1
-        Returns:
-            bool: False if wait failed
-            tuple: (bounds): if wait success
-        """
-        for path in list_u2_path:
-            try:
-                if isinstance(path, UiObject):
-                    if path.exists():
-                        return path.bounds()
-                    elif not path.exists():
-                        continue
-                elif isinstance(path, XPathSelector):
-                    if path.exists:
-                        return path.bounds
-                    elif not path.exists:
-                        continue
-            except XPathElementNotFoundError:
-                continue
-        return False
-
-    def get_cn_xp_hierarchy(self) -> tuple:
-        d = self.device.u2
-        xp = XPath(d)
-        hierarchy = d.dump_hierarchy()
-        return xp, hierarchy
-
-
-class XPS(XPathSelector):
-    def __init__(self, xpath, parent, source):
-        super().__init__(parent, xpath, source)

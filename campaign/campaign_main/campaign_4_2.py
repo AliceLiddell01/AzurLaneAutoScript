@@ -8,8 +8,7 @@ MAP = CampaignMap()
 MAP.shape = 'F6'
 MAP.camera_data = ['D2', 'D4']
 MAP.camera_data_spawn_point = ['D2']
-# WIKI的图有错: https://wiki.biligame.com/blhx/4-2
-# D5是敌人刷新点, 假图害人
+# The old wiki map was incorrect: D5 is an enemy spawn point.
 MAP.map_data = """
     ++ ++ ++ ME SP --
     SP -- -- -- ME --

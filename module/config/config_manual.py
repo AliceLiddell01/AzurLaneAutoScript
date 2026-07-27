@@ -132,8 +132,8 @@ class ManualConfig:
     MAP_HAS_MOVABLE_NORMAL_ENEMY = False
     MAP_HAS_SIREN = False
     MAP_HAS_DYNAMIC_RED_BORDER = False
-    MAP_HAS_MAP_STORY = False  # event_20200521_cn(穹顶下的圣咏曲) adds after-combat story.
-    MAP_HAS_WALL = False  # event_20200521_cn(穹顶下的圣咏曲) adds wall between grids.
+    MAP_HAS_MAP_STORY = False  # event_20200521_cn(Skybound Oratorio) adds after-combat story.
+    MAP_HAS_WALL = False  # event_20200521_cn(Skybound Oratorio) adds wall between grids.
     MAP_HAS_PT_BONUS = False  # 100% PT bonus if success to catch enemy else 50%. Retreat get 0%.
     MAP_IS_ONE_TIME_STAGE = False
     MAP_HAS_PORTAL = False

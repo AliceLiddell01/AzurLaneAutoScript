@@ -283,7 +283,7 @@ class Commission:
     def commission_name_parse(self, string):
         """
         Args:
-            string (str): Commission name, such as 'NYB要员护卫'.
+            string (str): Commission name, such as 'NYB VIP Escort'.
 
         Returns:
             str: Commission genre, such as 'urgent_gem'.

@@ -8,7 +8,7 @@ from module.ui.page import page_exercise
 
 
 class DatedDuration(Ocr):
-    def __init__(self, buttons, lang='cnocr', letter=(255, 255, 255), threshold=128, alphabet='0123456789:IDS天日d',
+    def __init__(self, buttons, lang='cnocr', letter=(255, 255, 255), threshold=128, alphabet='0123456789:IDSd',
                  name=None):
         super().__init__(buttons, lang=lang, letter=letter, threshold=threshold, alphabet=alphabet, name=name)
 
@@ -19,7 +19,7 @@ class DatedDuration(Ocr):
 
     def ocr(self, image, direct_ocr=False):
         """
-        Do OCR on a dated duration, such as `10d 01:30:30` or `7日01:30:30`.
+        Do OCR on a dated duration, such as `10d 01:30:30`.
         
         Args:
             image:
@@ -40,7 +40,7 @@ class DatedDuration(Ocr):
     def parse_time(string):
         """
         Args: 
-            string (str): `10d 01:30:30` or `7日01:30:30`
+            string (str): `10d 01:30:30`
         
         Returns:
             datetime.timedelta:

@@ -488,11 +488,7 @@ def get_next_time(t: datetime.time):
 
 def on_task_exception(self):
     logger.exception("An internal error occurred in the application")
-    toast_msg = (
-        "应用发生内部错误"
-        if "zh" in session_info.user_language
-        else "An internal error occurred in the application"
-    )
+    toast_msg = "An internal error occurred in the application"
 
     e_type, e_value, e_tb = sys.exc_info()
     lines = traceback.format_exception(e_type, e_value, e_tb)

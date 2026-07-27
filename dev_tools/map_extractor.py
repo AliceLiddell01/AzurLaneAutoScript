@@ -693,7 +693,7 @@ class ChapterTemplate:
          +------- event index, >=210 for war achieve
 
         Args:
-            name (str, int): A keyword from chapter name, such as '短兵相接', '正义的怒吼'
+            name (str, int): A keyword from an EN chapter name, such as 'Counterattack!'
                 Or map_id such as 702, 1140017
             select (bool): False means only extract this map, True means all maps from this event
 
@@ -775,7 +775,7 @@ Git clone https://github.com/AzurLaneTools/AzurLaneLuaScripts, to get the decryp
 Arguments:
     FILE:            Path to your AzurLaneLuaScripts directory
     FOLDER:          Folder to save, './campaign/test'
-    KEYWORD:         A keyword in map name, such as '短兵相接' (7-2, zh-CN), 'Counterattack!' (3-4, en-US)
+    KEYWORD:         A keyword in map name, such as 'Counterattack!' (3-4, en-US)
                      Or map id, such as 702 (7-2), 1140017 (Iris of Light and Dark D2)
     SELECT:          True if select all maps in the same event
                      False if extract this map only

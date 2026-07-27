@@ -1,6 +1,5 @@
 name: Bug Report
 description: Create a report to help us improve
-labels: ['bug / 缺陷']
 body:
   - type: checkboxes
     id: checks

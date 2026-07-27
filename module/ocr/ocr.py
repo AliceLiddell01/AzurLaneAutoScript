@@ -70,7 +70,7 @@ class Ocr:
     def after_process(self, result):
         """
         Args:
-            result (str): '第二行'
+            result (str): 'second line'
 
         Returns:
             str:

@@ -1151,9 +1151,8 @@ class AlasGUI(Frame):
             # show something
             put_markdown(
                 """
-            Alas is a free open source software, if you paid for Alas from any channel, please refund.
-            Alas 是一款免费开源软件，如果你在任何渠道付费购买了Alas，请退款。
-            Project repository 项目地址：`https://github.com/LmeSzinc/AzurLaneAutoScript`
+            Alas is free and open-source software. If you paid for it through any reseller, request a refund.
+            Project repository: `https://github.com/AliceLiddell01/AzurLaneAutoScript`
             """
             ).style("text-align: center")
 

@@ -13,11 +13,8 @@ class Zone:
     shape: str
     # Corrosion level, from 1 to 7
     hazard_level: int
-    # Name in different servers
-    cn: str
-    en: str
-    jp: str
-    tw: str
+    # English Global zone name
+    name: str
     # Position where information bar is pinned on
     area_pos: tuple
     # area_pos + offset_pos is where mission pinned on
@@ -48,9 +45,9 @@ class Zone:
     def __str__(self):
         """
         Returns:
-            str: Such as `[3|圣彼得伯格|St. Petersburg|ペテルブルク|聖彼得堡]`
+            str: Such as `[3|St. Petersburg]`
         """
-        return f'[{self.zone_id}|{self.en}]'
+        return f'[{self.zone_id}|{self.name}]'
 
     __repr__ = __str__
 
@@ -87,10 +84,10 @@ class ZoneManager:
 
     def name_to_zone(self, name):
         """
-        Convert a name from various format to zone instance.
+        Convert an English name or zone id to a zone instance.
 
         Args:
-            name (str, int, Zone): Name in CN/EN/JP/TW, zone id, or Zone instance.
+            name (str, int, Zone): English name, zone id, or Zone instance.
 
         Returns:
             Zone:
@@ -117,30 +114,9 @@ class ZoneManager:
 
             name = parse_name(name)
             for zone in self.zones:
-                if name == parse_name(zone.cn):
+                if name == parse_name(zone.name):
                     return zone
-                if name == parse_name(zone.en):
-                    return zone
-                if name == parse_name(zone.jp):
-                    return zone
-                if name == parse_name(zone.tw):
-                    return zone
-            # Normal arbiter, Hard arbiter, BOSS after hard arbiter cleared
-            # 普通难度：仲裁者·XXX, 困难难度：仲裁者·XXX, 困难模拟战：仲裁机关
-            for keyword in ['普通', '困难', '仲裁']:
-                if keyword in name:
-                    return self.name_to_zone(154)
-            # Normal - Arbiter: XXX, Hard - Arbiter: XXX, Hard - Arbiter (Practice)
             for keyword in ['normal', 'hard', 'arbiter']:
-                if keyword in name:
-                    return self.name_to_zone(154)
-            # ノーマル：アビータ・XXX, ハード：アビータ・XXX, ハード模擬戦：アビータ
-            for keyword in ['ノーマル', 'ハード', 'アビータ',
-                            'ノ一マル', 'ハ一ド', 'アビ一タ']:
-                if keyword in name:
-                    return self.name_to_zone(154)
-            # 普通難度：仲裁者·XXX, 困難難度：仲裁者·XXX, 困難模擬戰：仲裁機關
-            for keyword in ['普通', '困難', '仲裁']:
                 if keyword in name:
                     return self.name_to_zone(154)
             raise ScriptError(f'Unable to find OS globe zone: {name}')
@@ -148,7 +124,7 @@ class ZoneManager:
     def zone_nearest_azur_port(self, zone):
         """
         Args:
-            zone (str, int, Zone): Name in CN/EN/JP/TW, zone id, or Zone instance.
+            zone (str, int, Zone): English name, zone id, or Zone instance.
 
         Returns:
             Zone:

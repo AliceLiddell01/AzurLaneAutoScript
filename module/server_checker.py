@@ -165,9 +165,8 @@ class ServerChecker:
 
     def fast_retry(self) -> bool:
         """
-        Sometimes CN users may fail to connect to the API even when the network is available.
-        Thus, it need another trusty site to judge the network status.
-        Here choose Baidu.
+        A transient API failure can occur even when the network is available.
+        Use a neutral public endpoint to distinguish connectivity from API failure.
 
         Returns:
             bool: True if network is available
@@ -176,7 +175,7 @@ class ServerChecker:
         try:
             session = requests.Session()
             session.trust_env = False
-            _ = session.get('https://www.baidu.com', timeout=5)
+            _ = session.get('https://api.github.com', timeout=5)
             network_available = True
         except Exception as e:
             logger.error(e)
