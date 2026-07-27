@@ -543,31 +543,17 @@
       "name": "Drop Save Directory",
       "help": ""
     },
-    "AzurStatsID": {
-      "name": "AzurStat ID",
-      "help": "Used to identify your upload to <https://azur-stats.lyoko.io>, the ID consists of random characters and can be changed at any time"
-    },
-    "API": {
-      "name": "Upload API",
-      "help": "If CN users cannot connect to AzurStat, recommend to use \"reverse proxy\"",
-      "default": "Default (Cloudflare)",
-      "cn_gz_reverse_proxy": "Reverse proxy (Guangzhou, South China)"
-    },
     "ResearchRecord": {
       "name": "Research Record",
       "help": "",
       "do_not": "Do nothing",
-      "save": "Save",
-      "upload": "Upload",
-      "save_and_upload": "Save and upload"
+      "save": "Save"
     },
     "CommissionRecord": {
       "name": "Commission Record",
       "help": "",
       "do_not": "Do nothing",
-      "save": "Save",
-      "upload": "Upload",
-      "save_and_upload": "Save and upload"
+      "save": "Save"
     },
     "CombatRecord": {
       "name": "Combat Record",
@@ -579,9 +565,7 @@
       "name": "OpSi Record",
       "help": "",
       "do_not": "Do nothing",
-      "save": "Save",
-      "upload": "Upload",
-      "save_and_upload": "Save and upload"
+      "save": "Save"
     },
     "MeowfficerBuy": {
       "name": "Meowfficer Buy",
@@ -593,9 +577,7 @@
       "name": "Meowfficer Talent",
       "help": "",
       "do_not": "Do nothing",
-      "save": "Save",
-      "upload": "Upload",
-      "save_and_upload": "Save and upload"
+      "save": "Save"
     }
   },
   "Retirement": {
@@ -1490,7 +1472,7 @@
     },
     "PresetFilter": {
       "name": "Preset Filter Select",
-      "help": "See research drops rates and spawn rates in https://azur-stats.lyoko.io/. People without a basic knowledge of these are recommended to use pre-optimized presets instead of writing custom filters",
+      "help": "Use the included pre-optimized presets unless you understand research drop and spawn-rate tradeoffs.",
       "custom": "custom",
       "series_9_blueprint_ta152": "Series 9 Blueprints+Ta152",
       "series_9_blueprint_only": "Series 9 Blueprints Only",

@@ -771,7 +771,7 @@ class OSFleet(OSCamera, Combat, Fleet, OSAsh):
         logger.hr(f'BOSS clear', level=1)
 
         fleets = self.parse_fleet_filter()
-        with self.stat.new(
+        with self.drop_record.new(
                 genre=inflection.underscore(self.config.task.command),
                 method=self.config.DropRecord_OpsiRecord
         ) as drop:

@@ -509,7 +509,7 @@ class RewardCommission(UI, InfoHandler):
 
         reward = False
         click_timer = Timer(1)
-        with self.stat.new(
+        with self.drop_record.new(
                 'commission', method=self.config.DropRecord_CommissionRecord
         ) as drop:
             while 1:

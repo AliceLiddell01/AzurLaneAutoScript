@@ -135,7 +135,7 @@ class MeowfficerBuy(MeowfficerBase):
         # Here uses a simple click, to avoid clicking MEOWFFICER_BUY multiple times.
         logger.hr('Meow confirm')
         executed = False
-        with self.stat.new(
+        with self.drop_record.new(
                 genre="meowfficer_buy",
                 method=self.config.DropRecord_MeowfficerBuy,
         ) as drop:

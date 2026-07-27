@@ -120,7 +120,7 @@ class MapOperation(MysteryHandler, FleetPreparation, Retirement, FastForwardHand
         self.map_clear_percentage_prev = -1
         self.map_clear_percentage_timer.reset()
 
-        with self.stat.new(
+        with self.drop_record.new(
                 genre=self.config.campaign_name, method=self.config.DropRecord_CombatRecord
         ) as drop:
             while 1:

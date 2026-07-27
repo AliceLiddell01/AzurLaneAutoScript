@@ -265,7 +265,7 @@ class MeowfficerCollect(MeowfficerBase):
 
                 count += 1
                 logger.attr('Meow_get', count)
-                with self.stat.new(
+                with self.drop_record.new(
                         genre="meowfficer_talent",
                         method=self.config.DropRecord_MeowfficerTalent
                 ) as drop:
