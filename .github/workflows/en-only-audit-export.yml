@@ -164,6 +164,17 @@ jobs:
           fi
           test "$(git status --porcelain --untracked-files=no)" = ""
 
+      - name: Upload validation diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: en-only-validation-diagnostics
+          path: |
+            EN_ONLY_VALIDATION_REPORT.md
+            EN_ONLY_RESIDUAL_MATCHES.md
+          if-no-files-found: ignore
+          retention-days: 3
+
       - name: Push migration commits
         shell: bash
         run: |
