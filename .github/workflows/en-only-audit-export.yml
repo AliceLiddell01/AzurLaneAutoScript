@@ -124,12 +124,30 @@ jobs:
           commit_phase cleanup 'refactor(cleanup): remove residual localization and document exceptions'
           commit_phase regenerate 'chore(generate): verify generated outputs after cleanup'
 
-      - name: Install and validate webapp
+      - name: Install webapp dependencies
         working-directory: webapp
         shell: bash
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+          npm_config_legacy_peer_deps: 'true'
         run: |
           set -euo pipefail
-          npm ci
+          for attempt in 1 2 3; do
+            if npm ci --legacy-peer-deps --loglevel=error 2>&1 | tee "/tmp/npm-ci-${attempt}.log"; then
+              exit 0
+            fi
+            rm -rf node_modules
+            sleep $((attempt * 10))
+          done
+          exit 1
+
+      - name: Upload npm failure logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: en-only-npm-failure-logs
+          path: /tmp/npm-ci-*.log
+          retention-days: 3
 
       - name: Run final validation and commit report
         shell: bash
