@@ -1,11 +1,6 @@
 name: EN-only migration pipeline
 
 on:
-  push:
-    branches:
-      - refactor/en-only-remove-cn-jp-tw
-    paths:
-      - .github/workflows/en-only-audit-export.yml
   pull_request:
     branches:
       - master
@@ -16,7 +11,7 @@ permissions:
 
 concurrency:
   group: en-only-migration
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   migrate:
