@@ -71,7 +71,7 @@ jobs:
           curl --fail --silent --show-error \
             -H "Authorization: Bearer ${GH_TOKEN}" \
             -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${GITHUB_REPOSITORY}/git/blobs/ba07e60cf52db2e507e323da1c58dc45f21ccb70" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/git/blobs/65aabb48fcf4de482430ea279dfce192850b04ea" \
             | jq -r '.content' | tr -d '\n' | base64 --decode > /tmp/azurstats_patch.b64
           base64 --decode /tmp/azurstats_patch.b64 > /tmp/azurstats_patch.gz
           echo "2417e6a2724de3dd8ef868a4144d9d294a974be3dfd6e4670207ed110bfd7059  /tmp/azurstats_patch.gz" | sha256sum --check
