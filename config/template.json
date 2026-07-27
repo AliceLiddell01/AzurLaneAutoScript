@@ -28,8 +28,6 @@
     },
     "DropRecord": {
       "SaveFolder": "./screenshots",
-      "AzurStatsID": null,
-      "API": "default",
       "ResearchRecord": "do_not",
       "CommissionRecord": "do_not",
       "CombatRecord": "do_not",
@@ -1961,14 +1959,6 @@
     "Benchmark": {
       "DeviceType": "emulator",
       "TestScene": "screenshot_click"
-    },
-    "Storage": {
-      "Storage": {}
-    }
-  },
-  "AzurLaneUncensored": {
-    "AzurLaneUncensored": {
-      "Repository": "https://gitee.com/LmeSzinc/AzurLaneUncensored"
     },
     "Storage": {
       "Storage": {}
