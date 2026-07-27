@@ -1,0 +1,236 @@
+name: Finalize EN-only migration
+
+on:
+  push:
+    branches:
+      - refactor/en-only-remove-cn-jp-tw
+    paths:
+      - .github/workflows/en-only-finalize.yml
+  pull_request:
+    branches:
+      - master
+    paths:
+      - .github/workflows/en-only-finalize.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: en-only-finalize
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 120
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: refactor/en-only-remove-cn-jp-tw
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16.20.2'
+          cache: npm
+          cache-dependency-path: webapp/package-lock.json
+
+      - name: Restore verified migration tools
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          : > /tmp/en-only-tools.b64
+          for sha in \
+            a97fc9bd971c1b6861d502648068b211e07ef26b \
+            ee76694301f78b6e8d09e76cb16ec9943f620ed5 \
+            33ad2761a7f5ba1feaa8db823df1cb293b165921 \
+            00e899bfc58c0221586bc180b7ec04f81035f68d \
+            064da0dbd6b4a8aa49bf547725d069171d6a6b2d \
+            f79d5ceeff19fe55233d757e09d04c6c45159c0b
+          do
+            curl --fail --silent --show-error \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/git/blobs/${sha}" \
+              | jq -r '.content' | tr -d '\n' | base64 --decode >> /tmp/en-only-tools.b64
+          done
+          base64 --decode /tmp/en-only-tools.b64 > /tmp/en-only-tools.tar.gz
+          echo "4284c5b16a67ea520ed56877c4f76a49798faea95a52882063e4c4ed870da955  /tmp/en-only-tools.tar.gz" | sha256sum --check
+          tar -xzf /tmp/en-only-tools.tar.gz -C .
+
+          curl --fail --silent --show-error \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/git/blobs/65aabb48fcf4de482430ea279dfce192850b04ea" \
+            | jq -r '.content' | tr -d '\n' | base64 --decode > /tmp/azurstats-patch.b64
+          base64 --decode /tmp/azurstats-patch.b64 > /tmp/azurstats-patch.gz
+          echo "2417e6a2724de3dd8ef868a4144d9d294a974be3dfd6e4670207ed110bfd7059  /tmp/azurstats-patch.gz" | sha256sum --check
+          gzip -dc /tmp/azurstats-patch.gz | git apply
+
+          printf '%s\n' dev_tools/en_only_migration.py dev_tools/en_only_data_cleanup.py >> .git/info/exclude
+          python -m py_compile dev_tools/en_only_migration.py dev_tools/en_only_data_cleanup.py
+
+      - name: Install validation dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends xvfb libgtk-3-0 libgbm1 libnss3 libasound2
+          python -m pip install --upgrade pip
+          python -m pip install \
+            'numpy<2' 'scipy<2' pillow opencv-python-headless imageio \
+            pyyaml cached-property tqdm requests lxml psutil retrying rich \
+            inflection 'pydantic<2' aiofiles prettytable 'anyio<4' pycryptodome pyzmq
+
+      - name: Configure Git and capture baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p /tmp/en-only-baseline
+          git rev-parse origin/master > /tmp/en-only-baseline/fork-head.txt
+          git ls-remote https://github.com/LmeSzinc/AzurLaneAutoScript.git refs/heads/master | awk '{print $1}' > /tmp/en-only-baseline/upstream-head.txt
+          python --version > /tmp/en-only-baseline/python-version.txt 2>&1
+          node --version > /tmp/en-only-baseline/node-version.txt 2>&1
+          npm --version > /tmp/en-only-baseline/npm-version.txt 2>&1
+          set +e
+          python -m compileall -q alas.py gui.py module deploy dev_tools campaign submodule > /tmp/en-only-baseline/compile.log 2>&1
+          echo $? > /tmp/en-only-baseline/compile.exit
+          set -e
+
+      - name: Capture baseline webapp checks
+        working-directory: webapp
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --package-lock=false --ignore-scripts
+          set +e
+          npm run lint > /tmp/en-only-baseline/webapp-lint.log 2>&1; echo $? > /tmp/en-only-baseline/webapp-lint.exit
+          npm run typecheck > /tmp/en-only-baseline/webapp-typecheck.log 2>&1; echo $? > /tmp/en-only-baseline/webapp-typecheck.exit
+          xvfb-run -a npm run test > /tmp/en-only-baseline/webapp-test.log 2>&1; echo $? > /tmp/en-only-baseline/webapp-test.exit
+          npm run build > /tmp/en-only-baseline/webapp-build.log 2>&1; echo $? > /tmp/en-only-baseline/webapp-build.exit
+          set -e
+
+      - name: Create staged migration commits
+        shell: bash
+        run: |
+          set -euo pipefail
+          commit_phase() {
+            local phase="$1"
+            local message="$2"
+            python dev_tools/en_only_migration.py "$phase"
+            git add -A
+            if ! git diff --cached --quiet; then git commit -m "$message"; fi
+          }
+          commit_phase audit 'docs(audit): inventory EN-only removal scope'
+          commit_phase docs 'docs: make English README canonical'
+          commit_phase config 'refactor(config): restrict generated configuration to EN'
+          commit_phase runtime 'refactor(runtime): remove CN JP TW server dispatch'
+          commit_phase azurstats 'refactor(statistics): remove AzurStats integration'
+          commit_phase assets 'refactor(assets): migrate templates to EN-only tree'
+          commit_phase gui 'refactor(gui): remove localized UI surfaces'
+          commit_phase regenerate 'chore(generate): regenerate EN-only configuration and assets'
+          commit_phase tests 'test: add EN-only package config and AzurStats coverage'
+          commit_phase cleanup 'refactor(cleanup): remove residual localization and document exceptions'
+          commit_phase regenerate 'chore(generate): verify generated outputs after cleanup'
+
+          git rm \
+            .github/workflows/en-only-audit-export.yml \
+            .github/workflows/en-only-resume.yml \
+            .github/workflows/en-only-finalize.yml
+          git commit -m 'chore(ci): remove temporary migration workflows'
+
+      - name: Run core validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          mv webapp/node_modules /tmp/webapp-node_modules
+          set +e
+          python dev_tools/en_only_migration.py validate 2>&1 | tee /tmp/en-only-core-validation.log
+          status=${PIPESTATUS[0]}
+          set -e
+          mv /tmp/webapp-node_modules webapp/node_modules
+          test "$status" = "0"
+          git diff --check
+          git add -A
+          if ! git diff --cached --quiet; then git commit -m 'test: validate EN-only migration core'; fi
+
+      - name: Compare webapp checks with baseline
+        working-directory: webapp
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/en-only-post
+          set +e
+          npm run lint > /tmp/en-only-post/webapp-lint.log 2>&1; echo $? > /tmp/en-only-post/webapp-lint.exit
+          npm run typecheck > /tmp/en-only-post/webapp-typecheck.log 2>&1; echo $? > /tmp/en-only-post/webapp-typecheck.exit
+          xvfb-run -a npm run test > /tmp/en-only-post/webapp-test.log 2>&1; echo $? > /tmp/en-only-post/webapp-test.exit
+          npm run build > /tmp/en-only-post/webapp-build.log 2>&1; echo $? > /tmp/en-only-post/webapp-build.exit
+          set -e
+          for check in lint typecheck test build; do
+            before=$(cat "/tmp/en-only-baseline/webapp-${check}.exit")
+            after=$(cat "/tmp/en-only-post/webapp-${check}.exit")
+            if [ "$before" = "0" ] && [ "$after" != "0" ]; then
+              echo "Webapp regression in ${check}: baseline=${before}, post=${after}" >&2
+              exit 1
+            fi
+          done
+
+      - name: Finalize reports and push
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo
+            echo '## Reproducible runner baseline'
+            echo
+            echo "- Fork baseline: $(cat /tmp/en-only-baseline/fork-head.txt)"
+            echo "- Upstream baseline: $(cat /tmp/en-only-baseline/upstream-head.txt)"
+            echo "- Python: $(cat /tmp/en-only-baseline/python-version.txt)"
+            echo "- Node: $(cat /tmp/en-only-baseline/node-version.txt)"
+            echo "- npm: $(cat /tmp/en-only-baseline/npm-version.txt)"
+            echo
+            echo '## Webapp baseline comparison'
+            echo
+            echo '| Check | Baseline exit | Post-migration exit | Classification |'
+            echo '|---|---:|---:|---|'
+            for check in lint typecheck test build; do
+              before=$(cat "/tmp/en-only-baseline/webapp-${check}.exit")
+              after=$(cat "/tmp/en-only-post/webapp-${check}.exit")
+              if [ "$after" = "0" ]; then result='PASS';
+              elif [ "$before" = "$after" ]; then result='BASELINE FAILURE (not introduced by migration)';
+              else result='CHANGED FAILURE'; fi
+              echo "| ${check} | ${before} | ${after} | ${result} |"
+            done
+          } >> EN_ONLY_VALIDATION_REPORT.md
+          git add -A
+          if ! git diff --cached --quiet; then git commit -m 'docs: record final EN-only validation and baseline comparison'; fi
+          rm -f dev_tools/en_only_migration.py dev_tools/en_only_data_cleanup.py
+          test "$(git status --porcelain --untracked-files=no)" = ""
+          git push origin HEAD:refactor/en-only-remove-cn-jp-tw
+
+      - name: Upload diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: en-only-finalize-diagnostics
+          path: |
+            /tmp/en-only-core-validation.log
+            /tmp/en-only-baseline
+            /tmp/en-only-post
+            EN_ONLY_VALIDATION_REPORT.md
+            EN_ONLY_RESIDUAL_MATCHES.md
+            AZURSTATS_REMOVAL.md
+          if-no-files-found: ignore
+          retention-days: 3
