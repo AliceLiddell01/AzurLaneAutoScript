@@ -1,0 +1,44 @@
+name: EN-only audit export
+
+on:
+  push:
+    branches:
+      - refactor/en-only-remove-cn-jp-tw
+    paths:
+      - .github/workflows/en-only-audit-export.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Record baseline
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p _en_only_audit
+          git status --short > _en_only_audit/git-status.txt
+          git rev-parse HEAD > _en_only_audit/fork-head.txt
+          git remote -v > _en_only_audit/remotes.txt
+          python --version > _en_only_audit/python-version.txt 2>&1 || true
+          node --version > _en_only_audit/node-version.txt 2>&1 || true
+          npm --version > _en_only_audit/npm-version.txt 2>&1 || true
+          pnpm --version > _en_only_audit/pnpm-version.txt 2>&1 || true
+
+      - name: Upload repository snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: alas-en-only-audit-snapshot
+          path: |
+            .
+            !.git/**
+          include-hidden-files: true
+          retention-days: 3
