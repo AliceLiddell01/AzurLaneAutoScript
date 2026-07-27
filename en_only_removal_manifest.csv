@@ -1,0 +1,294 @@
+path,kind,language_or_server,runtime_referenced,references,generated,source_of_truth,unique_content,planned_action,replacement_path,risk,status
+.github/workflows/en-only-audit-export.yml,build_or_deploy,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,medium,inventoried
+.github/workflows/en-only-final2.yml,build_or_deploy,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,medium,inventoried
+.github/workflows/en-only-finalize.yml,build_or_deploy,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,medium,inventoried
+.github/workflows/en-only-resume.yml,build_or_deploy,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,medium,inventoried
+README.md,documentation,CN/TW+JP+TW,no,CN; cn; 简体中文; JP; jp; 日本語; TW; tw; AzurStats; azurstats; azur-stats.lyoko.io,no,,pending_review,remove_service_integration,,medium,inventoried
+README_en.md,documentation,CN/TW+JP+TW,no,CN; cn; 简体中文; JP; jp; 日本語; TW; tw; AzurStats; azurstats; azur-stats.lyoko.io,no,,pending_review,remove_service_integration,,medium,inventoried
+README_jp.md,documentation,CN/TW+JP+TW,no,CN; cn; JP; jp; 日本語; TW; tw; AzurStats; azurstats; azur-stats.lyoko.io,no,,pending_review,remove_service_integration,,medium,inventoried
+alas.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+assets/gui/css/alas.css,asset,TW,unknown,TW; tw,no,,n/a,review,,high,inventoried
+assets/gui/css/dark-alas.css,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,no,,n/a,review,,high,inventoried
+assets/gui/css/light-alas.css,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,no,,n/a,review,,high,inventoried
+bin/cnocr_models/jp/cnocr-v1.2.0-densenet-lite-gru-symbol.json,other,JP,no,,no,,n/a,review,,medium,inventoried
+bin/cnocr_models/jp/label_cn.txt,other,JP,no,,no,,n/a,review,,medium,inventoried
+bin/cnocr_models/tw/cnocr-v1.2.0-densenet-lite-gru-symbol.json,other,TW,no,,no,,n/a,review,,medium,inventoried
+bin/cnocr_models/tw/label_cn.txt,other,TW,no,,no,,n/a,review,,medium,inventoried
+campaign/Readme.md,documentation,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw,no,,pending_review,review,,medium,inventoried
+campaign/campaign_main/campaign_15_base.py,campaign,TW,yes,TW; tw,no,,n/a,review,,high,inventoried
+campaign/event_20200312_cn/sp3.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200326_cn/a2.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200326_cn/a3.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200326_cn/b1.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200326_cn/b2.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200326_cn/b3.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200423_cn/a2.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200423_cn/a3.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200423_cn/b2.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200423_cn/b3.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200423_cn/c2.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200423_cn/c3.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200423_cn/d2.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200423_cn/d3.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200507_cn/sp2.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200507_cn/sp3.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200521_cn/a2.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200521_cn/a3.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200521_cn/b2.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200521_cn/b3.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200521_cn/c2.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200521_cn/c3.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200521_cn/d2.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20200521_cn/d3.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20201029_cn/campaign_base.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20201126_cn/campaign_base.py,campaign,CN/TW+TW,yes,CN; cn; TW; tw,no,,n/a,review,,high,inventoried
+campaign/event_20210722_cn/campaign_base.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20230817_cn/campaign_base.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20240521_cn/a1.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20240521_cn/b2.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20240521_cn/b3.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20240521_cn/c1.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20240521_cn/d2.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20240521_cn/d3.py,campaign,CN/TW,yes,CN; cn,no,,n/a,review,,high,inventoried
+campaign/event_20240912_cn/campaign_base.py,campaign,CN/TW+TW,yes,CN; cn; TW; tw,no,,n/a,review,,high,inventoried
+campaign/event_20260417_cn/campaign_base.py,campaign,TW,yes,TW; tw,no,,n/a,review,,high,inventoried
+config/deploy.template-AidLux-cn.yaml,config,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; Chinese; JP; jp; ja-JP; Japanese; TW; tw,no,,n/a,delete,,high,inventoried
+config/deploy.template-AidLux.yaml,config,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; Chinese; JP; jp; ja-JP; Japanese; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+config/deploy.template-cn.yaml,config,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; Chinese; JP; jp; ja-JP; Japanese; TW; tw,no,,n/a,delete,,high,inventoried
+config/deploy.template-docker-cn.yaml,config,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; Chinese; JP; jp; ja-JP; Japanese; TW; tw,no,,n/a,delete,,high,inventoried
+config/deploy.template-docker.yaml,config,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; Chinese; JP; jp; ja-JP; Japanese; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+config/deploy.template-linux-cn.yaml,config,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; Chinese; JP; jp; ja-JP; Japanese; TW; tw,no,,n/a,delete,,high,inventoried
+config/deploy.template-linux.yaml,config,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; Chinese; JP; jp; ja-JP; Japanese; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+config/deploy.template.yaml,config,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; Chinese; JP; jp; ja-JP; Japanese; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+config/template.json,config,CN/TW+TW,yes,CN; cn; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,high,inventoried
+config/template.maa.json,config,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+deploy/AidLux/0.92/requirements.txt,build_or_deploy,CN/TW,no,CN; cn,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/Readme.md,build_or_deploy,TW,no,TW; tw,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/Windows/config.py,build_or_deploy,CN/TW,no,CN; cn,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/Windows/git.py,build_or_deploy,CN/TW+TW,no,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/Windows/installer_test.py,build_or_deploy,CN/TW,no,CN; cn; zh-CN,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/Windows/patch.py,build_or_deploy,CN/TW+TW,no,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/Windows/template.yaml,build_or_deploy,CN/TW+JP+TW,no,CN; cn; zh-CN; zh-TW; Chinese; JP; jp; ja-JP; Japanese; TW; tw,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/adb.py,build_or_deploy,TW,no,TW; tw,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/atomic.py,build_or_deploy,TW,no,TW; tw,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/config.py,build_or_deploy,CN/TW,no,CN; cn,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/docker/Docker-run.sh,build_or_deploy,TW,no,TW; tw,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/docker/requirements.txt,build_or_deploy,CN/TW,no,CN; cn,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/emulator.py,build_or_deploy,CN/TW+TW,no,Chinese; TW; tw,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/git.py,build_or_deploy,CN/TW,no,CN; cn,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/headless/requirements.txt,build_or_deploy,CN/TW,no,CN; cn,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/install/emulator_windows.py,build_or_deploy,CN/TW+TW,no,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/patch.py,build_or_deploy,CN/TW+TW,no,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,medium,inventoried
+deploy/template,build_or_deploy,CN/TW+JP+TW,no,CN; cn; zh-CN; zh-TW; Chinese; JP; jp; ja-JP; Japanese; TW; tw,no,,n/a,simplify_to_EN,,medium,inventoried
+dev_tools/alas2.bat,other,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw,no,,n/a,review,,medium,inventoried
+dev_tools/arm64/requirements.txt,other,CN/TW,no,CN; cn,no,,n/a,review,,medium,inventoried
+dev_tools/button_extract.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+dev_tools/emulator_test.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+dev_tools/en_only_data_cleanup.py,runtime,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; Chinese; JP; jp; ja-JP; TW; tw; com.bilibili; azur-stats.lyoko.io,no,,n/a,remove_service_integration,,high,inventoried
+dev_tools/en_only_migration.py,runtime,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh_CN; zh-TW; zh_TW; Chinese; 简体中文; 繁體中文; JP; jp; ja-JP; ja_JP; Japanese; 日本語; TW; tw; com.bilibili; com.YoStarJP; com.hkmanjuu,no,,n/a,remove_service_integration,,high,inventoried
+dev_tools/grids_debug.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+dev_tools/item_statistics.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+dev_tools/map_extractor.py,runtime,CN/TW,yes,CN; cn; zh-CN,no,,n/a,simplify_to_EN,,high,inventoried
+dev_tools/os_extract.py,runtime,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; JP; jp; ja-JP; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+dev_tools/relative_crop.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+dev_tools/relative_record.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+dev_tools/relative_record_gif.py,runtime,CN/TW+TW,yes,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+dev_tools/relative_record_gif2.py,runtime,CN/TW+TW,yes,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+dev_tools/research_extractor.py,runtime,CN/TW,yes,CN; cn; zh-CN; Chinese,no,,n/a,simplify_to_EN,,high,inventoried
+dev_tools/research_optimizer.py,runtime,CN/TW,yes,CN; cn; azur-stats.lyoko.io,no,,n/a,remove_service_integration,,high,inventoried
+dev_tools/uiautomator2_screenshot.py,runtime,JP,yes,JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+dev_tools/utils.py,runtime,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; JP; jp; ja-JP; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+dev_tools/word_template_extractor.py,runtime,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; JP; jp; ja-JP; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+docker-compose.yml,other,CN/TW+TW,no,CN; cn; TW; tw,no,,n/a,review,,medium,inventoried
+module/awaken/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/base/base.py,runtime,CN/TW+TW,yes,CN; cn; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,high,inventoried
+module/base/mask.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/base/resource.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/base/retry.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/base/utils.py,runtime,CN/TW+TW,yes,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/campaign/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/campaign/campaign_ocr.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/campaign/campaign_status.py,runtime,JP,yes,JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/campaign/gems_farming.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+module/campaign/os_run.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/campaign/run.py,runtime,CN/TW+TW,yes,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/coalition/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/coalition/coalition.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+module/coalition/ui.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/combat/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/combat/combat.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,high,inventoried
+module/combat/hp_balancer.py,runtime,CN/TW+JP,yes,Chinese; JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/combat/level.py,runtime,JP+TW,yes,JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/combat_ui/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/commission/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/commission/commission.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+module/commission/project.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/commission/project_data.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/config/argument/args.json,config,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw; com.bilibili; com.YoStarJP; com.hkmanjuu; cn_android; cn_ios; cn_channel; reverse_proxy; AzurStats; azurstats,yes,module/config/argument/*.yaml + config_updater.py,n/a,remove_service_integration,,high,inventoried
+module/config/argument/argument.yaml,config,CN/TW+TW,yes,CN; cn; TW; tw; reverse_proxy; AzurStats; azurstats,no,,n/a,remove_service_integration,,high,inventoried
+module/config/config.py,config,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/config/config_generated.py,config,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw; com.bilibili; com.YoStarJP; com.hkmanjuu; cn_android; cn_ios; cn_channel; reverse_proxy; AzurStats; azurstats,yes,module/config/config_updater.py,n/a,remove_service_integration,,high,inventoried
+module/config/config_manual.py,config,CN/TW+TW,yes,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/config/config_updater.py,config,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; JP; jp; TW; tw; AzurStats; azurstats,no,,n/a,remove_service_integration,,high,inventoried
+module/config/deep.py,config,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/config/i18n/en-US.json,gui_locale,CN/TW+JP+TW,no,CN; cn; Chinese; JP; jp; TW; tw; com.bilibili; com.YoStarJP; com.hkmanjuu; cn_android; cn_ios; cn_channel; reverse_proxy; AzurStats; azurstats; azur-stats.lyoko.io,no,module/config/config_updater.py + existing locale bundle,n/a,remove_service_integration,,medium,inventoried
+module/config/i18n/ja-JP.json,gui_locale,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; com.bilibili; com.YoStarJP; com.hkmanjuu; cn_android; cn_ios; cn_channel; reverse_proxy; AzurStats; azurstats,no,module/config/config_updater.py + existing locale bundle,n/a,remove_service_integration,,medium,inventoried
+module/config/i18n/zh-CN.json,gui_locale,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; com.bilibili; com.YoStarJP; com.hkmanjuu; cn_android; cn_ios; cn_channel; reverse_proxy; AzurStats; azurstats; azur-stats.lyoko.io,no,module/config/config_updater.py + existing locale bundle,n/a,remove_service_integration,,medium,inventoried
+module/config/i18n/zh-TW.json,gui_locale,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw; com.bilibili; com.YoStarJP; com.hkmanjuu; cn_android; cn_ios; cn_channel; reverse_proxy; AzurStats; azurstats; azur-stats.lyoko.io,no,module/config/config_updater.py + existing locale bundle,n/a,remove_service_integration,,medium,inventoried
+module/config/redirect_utils/utils.py,config,CN/TW,yes,CN; cn; reverse_proxy,no,,n/a,simplify_to_EN,,high,inventoried
+module/config/server.py,config,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw; com.bilibili; com.YoStarJP; com.hkmanjuu; cn_android; cn_ios; cn_channel,no,,n/a,simplify_to_EN,,high,inventoried
+module/config/utils.py,config,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; JP; jp; ja-JP; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/daily/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/daily/daily.py,runtime,JP,yes,JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/connection.py,runtime,CN/TW+TW,yes,CN; cn; Chinese; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/connection_attr.py,runtime,CN/TW+TW,yes,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/device.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/method/adb.py,runtime,CN/TW+TW,yes,TW; tw; com.bilibili,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/method/droidcast.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/method/hermit.py,runtime,CN/TW,yes,CN; cn; zh-CN,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/method/pool.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/method/remove_warning.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/method/scrcpy/const.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/method/scrcpy/core.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/method/uiautomator_2.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/method/utils.py,runtime,CN/TW+TW,yes,Chinese; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/method/wsa.py,runtime,CN/TW,yes,com.bilibili,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/platform/emulator_windows.py,runtime,CN/TW+TW,yes,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/platform/platform_base.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/platform/platform_windows.py,runtime,CN/TW+TW,yes,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/device/screenshot.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/dorm/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/equipment/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/equipment/equipment_change.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/event/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/event_hospital/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/event_hospital/clue.py,runtime,JP+TW,yes,JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/eventstory/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/eventstory/eventstory.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+module/exercise/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/exercise/exercise.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+module/freebies/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/freebies/battle_pass.py,runtime,CN/TW+JP,yes,CN; cn; JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/gacha/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/gacha/ui.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/game_setting/setting_extractor.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+module/game_setting/setting_generated.py,runtime,TW,yes,TW; tw,yes,,n/a,simplify_to_EN,,high,inventoried
+module/guild/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/guild/logistics.py,runtime,JP+TW,yes,JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/guild/operations.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/handler/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/handler/info_handler.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+module/handler/login.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+module/hard/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/logger.py,runtime,CN/TW+TW,yes,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/map/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/map/camera.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/map/fleet.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/map/map.py,runtime,CN/TW+TW,yes,Chinese; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/map/map_fleet_preparation.py,runtime,CN/TW+JP,yes,CN; cn; JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/map_detection/grid_info.py,runtime,CN/TW,yes,Chinese,no,,n/a,simplify_to_EN,,high,inventoried
+module/map_detection/homography.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/map_detection/perspective.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/map_detection/utils.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/meowfficer/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/meowfficer/base.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/meta_reward/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/meta_reward/meta_reward.py,runtime,CN/TW+JP,yes,CN; cn; JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/minigame/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/minigame/minigame.py,runtime,JP,yes,JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/minigame/new_year_challenge.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/ocr/al_ocr.py,runtime,CN/TW+TW,yes,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/ocr/models.py,runtime,CN/TW+JP+TW,yes,CN; cn; Chinese; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/ocr/ocr.py,runtime,CN/TW+JP,yes,CN; cn; JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/ocr/rpc.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/os/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/os/fleet.py,runtime,JP+TW,yes,JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/os/globe_camera.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/os/globe_detection.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/os/globe_zone.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/os/map.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/os/map_data.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,yes,,n/a,simplify_to_EN,,high,inventoried
+module/os/map_operation.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/os_ash/ash.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/os_ash/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/os_ash/meta.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/os_combat/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/os_handler/action_point.py,runtime,CN/TW+JP,yes,CN; cn; JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/os_handler/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/os_handler/map_event.py,runtime,mixed,yes,AzurStats; azurstats,no,,n/a,remove_service_integration,,high,inventoried
+module/os_handler/os_status.py,runtime,JP,yes,JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/os_shop/akashi_shop.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/os_shop/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/os_shop/item.py,runtime,JP,yes,JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/os_shop/ui.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/private_quarters/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/private_quarters/private_quarters.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/private_quarters/status.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/private_quarters/ui.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/raid/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/raid/raid.py,runtime,CN/TW+JP,yes,CN; cn; JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/research/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/research/project.py,runtime,JP+TW,yes,JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/research/project_data.py,runtime,TW,yes,TW; tw,yes,,n/a,simplify_to_EN,,high,inventoried
+module/research/rqueue.py,runtime,JP+TW,yes,JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/research/selector.py,runtime,JP,yes,JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/research/ui.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/retire/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/retire/dock.py,runtime,JP,yes,JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/retire/enhancement.py,runtime,JP+TW,yes,JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/retire/retirement.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/retire/scanner.py,runtime,JP+TW,yes,JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/retire/setting.py,runtime,CN/TW+JP,yes,CN; cn; JP; jp,no,,n/a,simplify_to_EN,,high,inventoried
+module/reward/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/reward/reward.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/server_checker.py,runtime,CN/TW+TW,yes,CN; cn; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/shipyard/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/shipyard/ui.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/shop/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/shop/clerk.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/shop/shop_general.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/shop/shop_medal.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/shop/shop_status.py,runtime,JP+TW,yes,JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/shop/shop_voucher.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/shop/ui.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/sos/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/sos/sos.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/statistics/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/statistics/azurstats.py,runtime,CN/TW,yes,CN; cn; reverse_proxy; AzurStats; azurstats; azurstats.lyoko.io,no,,n/a,remove_service_integration,,high,inventoried
+module/statistics/battle_status.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+module/statistics/drop_statistics.py,runtime,CN/TW,yes,CN; cn; Chinese,no,,n/a,simplify_to_EN,,high,inventoried
+module/statistics/item.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/storage/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/tactical/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/tactical/tactical_class.py,runtime,CN/TW+JP+TW,yes,CN; cn; JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/template/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/ui/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/ui/ui.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/ui_white/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/war_archives/assets.py,asset,CN/TW+JP+TW,unknown,CN; cn; JP; jp; TW; tw,yes,dev_tools/button_extract.py + assets/,n/a,review,,high,inventoried
+module/war_archives/dictionary.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+module/webui/app.py,runtime,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; 简体中文; 繁體中文; JP; jp; ja-JP; 日本語; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/webui/lang.py,runtime,CN/TW+JP,yes,CN; cn; zh-CN; JP; jp; ja-JP,no,,n/a,simplify_to_EN,,high,inventoried
+module/webui/remote_access.py,runtime,CN/TW,yes,CN; cn,no,,n/a,simplify_to_EN,,high,inventoried
+module/webui/translate.py,runtime,CN/TW+JP+TW,yes,CN; cn; zh-CN; zh-TW; JP; jp; ja-JP; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+module/webui/utils.py,runtime,CN/TW,yes,CN; cn; zh_CN,no,,n/a,simplify_to_EN,,high,inventoried
+requirements-in.txt,other,CN/TW,no,CN; cn,no,,n/a,review,,medium,inventoried
+requirements.txt,other,CN/TW,no,CN; cn,no,,n/a,review,,medium,inventoried
+submodule/AlasMaaBridge/maa.py,runtime,JP+TW,yes,JP; jp; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+submodule/AlasMaaBridge/module/config/argument/args.json,other,JP+TW,no,JP; jp; TW; tw,yes,,n/a,review,,medium,inventoried
+submodule/AlasMaaBridge/module/config/argument/argument.yaml,other,JP+TW,no,JP; jp; TW; tw,no,,n/a,review,,medium,inventoried
+submodule/AlasMaaBridge/module/config/argument/task.yaml,other,TW,no,TW; tw,no,,n/a,review,,medium,inventoried
+submodule/AlasMaaBridge/module/config/config_generated.py,runtime,JP+TW,yes,JP; jp; TW; tw,yes,,n/a,simplify_to_EN,,high,inventoried
+submodule/AlasMaaBridge/module/config/config_updater.py,runtime,TW,yes,TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+submodule/AlasMaaBridge/module/config/i18n/en-US.json,other,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw,no,,n/a,review,,medium,inventoried
+submodule/AlasMaaBridge/module/config/i18n/ja-JP.json,other,JP+TW,no,JP; jp; TW; tw,no,,n/a,review,,medium,inventoried
+submodule/AlasMaaBridge/module/config/i18n/zh-CN.json,other,JP+TW,no,JP; jp; TW; tw,no,,n/a,review,,medium,inventoried
+submodule/AlasMaaBridge/module/config/i18n/zh-TW.json,other,JP+TW,no,JP; jp; TW; tw,no,,n/a,review,,medium,inventoried
+submodule/AlasMaaBridge/module/handler/handler.py,runtime,CN/TW+TW,yes,CN; cn; zh-CN; TW; tw,no,,n/a,simplify_to_EN,,high,inventoried
+webapp/.eslintrc.json,other,TW,no,TW; tw,no,,n/a,review,,medium,inventoried
+webapp/README.md,documentation,TW,no,TW; tw,no,,pending_review,review,,medium,inventoried
+webapp/package-lock.json,other,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw,no,,n/a,review,,medium,inventoried
+webapp/packages/main/dist/main.js,other,CN/TW+JP+TW,no,CN; cn; JP; jp; TW; tw,no,,n/a,review,,medium,inventoried
+webapp/packages/renderer/dist/vendor.9d29c495.js,other,CN/TW+TW,no,CN; cn; TW; tw,no,,n/a,review,,medium,inventoried
+webapp/scripts/watch.js,other,TW,no,TW; tw,no,,n/a,review,,medium,inventoried
+webapp/tests/app.spec.js,other,TW,no,TW; tw,no,,n/a,review,,medium,inventoried
