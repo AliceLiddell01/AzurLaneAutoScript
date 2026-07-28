@@ -15,7 +15,9 @@ The migration is incremental. The repository must remain reviewable and the EN-o
 
 ## Current programme state
 
-- Governance and documentation structure: **IN PROGRESS**
+- Governance and documentation structure: **COMPLETE**
+- M0 immediate containment: **IN PROGRESS** (`WP0.3` implementation validated;
+  merge review and later `WP0.4`/`WP0.5` remain)
 - Runtime target: **CPython 3.14.6, standard GIL build**
 - Existing production runtime baseline: **legacy and not yet reproducibly declared**
 - OCR migration: **NOT STARTED**

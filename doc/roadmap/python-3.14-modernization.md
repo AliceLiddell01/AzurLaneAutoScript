@@ -130,6 +130,26 @@ Make the repository safe to work on and establish one canonical planning/documen
 - Remove or guard destructive reset/pull behaviour.
 - Add a hard invariant test preventing upstream repository defaults from returning.
 
+**Status:** IN PROGRESS — implementation and focused local validation are complete
+on `agent/updater-containment`; merge review is pending.
+
+**Evidence:**
+
+- Canonical and platform deployment defaults point to the fork with automatic,
+  periodic, and scheduled updates disabled.
+- Legacy upstream URL forms and `global` migrate to the fork and persist with
+  automatic updates disabled; arbitrary custom repositories remain unchanged
+  and are denied updater permission.
+- All main WebUI updater entry points share one fail-closed guard before
+  network, Git, Pip, process-management, or reload operations.
+- The update path uses only a clean-checkout, fork-remote, branch-matched
+  `fetch` followed by `merge --ff-only`; it does not mutate remotes, remove lock
+  files, reset the checkout, or use Git-over-CDN.
+- `python -m unittest tests.test_updater_containment -v` passes focused config,
+  migration, guard, disposable-Git, WebUI control-flow, and invariant tests.
+- Full M8 updater, installer, rollback, release-channel, and reproducible
+  packaging reconstruction remains out of scope.
+
 #### WP0.4 — immediate network containment
 
 - Change default GUI bind address to `127.0.0.1`.

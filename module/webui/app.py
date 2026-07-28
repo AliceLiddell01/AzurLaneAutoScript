@@ -877,6 +877,14 @@ class AlasGUI(Frame):
                     color="primary",
                     scope="updater_btn",
                 )
+            elif state == "disabled":
+                put_loading("border", "secondary", "updater_loading").style(
+                    "--loading-border-fill--"
+                )
+                put_text(
+                    "Updater disabled by containment policy",
+                    scope="updater_state",
+                )
             elif state == "start":
                 put_loading("border", "primary", "updater_loading").style(
                     "--loading-border--"
