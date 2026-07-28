@@ -4,7 +4,6 @@ import threading
 import time
 from typing import Generator, List, Tuple
 
-import requests
 from deploy.config import ExecutionError
 from deploy.git import GitManager
 from deploy.pip import PipManager
@@ -26,11 +25,15 @@ class Updater(DeployConfig, GitManager, PipManager):
     @property
     def delay(self):
         self.read()
+        if not self.AutoUpdate:
+            return 0
         return int(self.CheckUpdateInterval) * 60
 
     @property
     def schedule_time(self):
         self.read()
+        if not self.AutoUpdate:
+            return None
         t = self.AutoRestartTime
         if t is not None:
             return datetime.time.fromisoformat(t)
@@ -66,115 +69,19 @@ class Updater(DeployConfig, GitManager, PipManager):
         else:
             return logs
 
-    def _check_update(self) -> bool:
+    def _check_update(self):
         self.state = "checking"
-
-        if State.deploy_config.GitOverCdn:
-            status = self.goc_client.get_status()
-            if status == "uptodate":
-                logger.info(f"No update")
-                return False
-            elif status == "behind":
-                logger.info(f"New update available")
-                return True
-            else:
-                # failed, should fallback to `git pull`
-                pass
-
-        source = "origin"
-        for _ in range(3):
-            if self.execute(
-                f'"{self.git}" fetch {source} {self.Branch}', allow_failure=True
-            ):
-                break
-        else:
-            logger.warning("Git fetch failed")
-            return False
-
-        log = self.execute_output(
-            f'"{self.git}" log --not --remotes={source}/* -1 --oneline'
-        )
-        if log:
-            logger.info(
-                f"Cannot find local commit {log.split()[0]} in upstream, skip update"
-            )
-            return False
-
-        sha1, _, _, message = self.get_commit(f"..{source}/{self.Branch}")
-
-        if sha1:
-            logger.info(f"New update available")
-            logger.info(f"{sha1[:8]} - {message}")
-            return True
-        else:
-            logger.info(f"No update")
-            return False
-
-    def _check_update_(self) -> bool:
-        """
-        Deprecated
-        """
-        self.state = "checking"
-        r = self.Repository.split("/")
-        owner = r[3]
-        repo = r[4]
-        base = "https://api.github.com/repos/"
-        headers = {"Accept": "application/vnd.github.v3.sha"}
-        para = {}
-        token = self.config["ApiToken"]
-        if token:
-            headers["Authorization"] = "token " + token
-
-        try:
-            list_commit = requests.get(
-                base + f"{owner}/{repo}/branches/{self.Branch}",
-                headers=headers,
-                params=para,
-            )
-        except Exception as e:
-            logger.exception(e)
-            logger.warning("Check update failed")
+        status = self.check_update_status()
+        if status == self.UPDATE_AVAILABLE:
+            return 1
+        if status == self.UPDATE_CURRENT:
             return 0
-
-        if list_commit.status_code != 200:
-            logger.warning(f"Check update failed, code {list_commit.status_code}")
-            return 0
-        try:
-            sha = list_commit.json()["commit"]["sha"]
-        except Exception as e:
-            logger.exception(e)
-            logger.warning("Check update failed when parsing return json")
-            return 0
-
-        local_sha, _, _, _ = self._get_local_commit()
-
-        if sha == local_sha:
-            logger.info("No update")
-            return 0
-
-        try:
-            get_commit = requests.get(
-                base + f"{owner}/{repo}/commits/" + local_sha,
-                headers=headers,
-                params=para,
-            )
-        except Exception as e:
-            logger.exception(e)
-            logger.warning("Check update failed")
-            return 0
-
-        if get_commit.status_code != 200:
-            # for develops
-            logger.info(
-                f"Cannot find local commit {local_sha[:8]} in upstream, skip update"
-            )
-            return 0
-
-        logger.info(f"Update {sha[:8]} available")
-        return 1
+        if status == self.UPDATE_BLOCKED:
+            return "disabled"
+        return "failed"
 
     def check_update(self):
-        if self.state in (0, "failed", "finish"):
+        if self.state in (0, "disabled", "failed", "finish"):
             self.state = self._check_update()
 
     @retry(ExecutionError, tries=3, delay=5, logger=None)
@@ -183,23 +90,43 @@ class Updater(DeployConfig, GitManager, PipManager):
 
     @retry(ExecutionError, tries=3, delay=5, logger=None)
     def pip_install(self):
+        guard = self.updater_guard("update")
+        if not guard:
+            self.state = "disabled"
+            return False
         return super().pip_install()
 
     def update(self):
         logger.hr("Run update")
+        guard = self.updater_guard("update")
+        if not guard:
+            self.state = "disabled"
+            return False
         try:
-            self.git_install()
+            status = self.git_install()
+            if status != self.UPDATE_APPLIED:
+                if status == self.UPDATE_BLOCKED:
+                    self.state = "disabled"
+                return False
             self.pip_install()
         except ExecutionError:
             return False
         return True
 
     def run_update(self):
+        guard = self.updater_guard("update")
+        if not guard:
+            self.state = "disabled"
+            return False
         if self.state not in ("failed", 0, 1):
-            return
-        self._start_update()
+            return False
+        return self._start_update()
 
     def _start_update(self):
+        guard = self.updater_guard("update")
+        if not guard:
+            self.state = "disabled"
+            return False
         self.state = "start"
         instances = ProcessManager.running_instances()
         names = []
@@ -208,6 +135,7 @@ class Updater(DeployConfig, GitManager, PipManager):
 
         logger.info("Waiting all running alas finish.")
         self._wait_update(instances, names)
+        return True
 
     def _wait_update(self, instances: List[ProcessManager], names):
         if self.state == "cancel":
@@ -273,7 +201,7 @@ class Updater(DeployConfig, GitManager, PipManager):
         th = yield
         if self.schedule_time is None:
             th.remove_current_task()
-            yield
+            return
         th._task.delay = get_next_time(self.schedule_time)
         yield
         while True:
@@ -297,6 +225,4 @@ class Updater(DeployConfig, GitManager, PipManager):
 updater = Updater()
 
 if __name__ == "__main__":
-    pass
-    # if updater.check_update():
-    updater.update()
+    logger.warning("Direct updater execution is disabled; no network request was made")

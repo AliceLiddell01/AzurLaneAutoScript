@@ -17,9 +17,9 @@ The detailed audit was conducted against fork commit `6eade51dd48ab4f844a899e1a1
 
 | ID | Severity | Status | Summary | Planned milestone | Closure evidence |
 |---|---|---|---|---|---|
-| `ALAS-AUDIT-001` | P0 | OPEN | Default deployment/update configuration targets upstream `LmeSzinc/AzurLaneAutoScript`; updater logic can reset and pull destructively. | M0 / M8 | Fork-safe defaults, updater disabled or contained by default, disposable-repository tests, documented rollback behaviour. |
+| `ALAS-AUDIT-001` | P0 | MITIGATED | Default deployment/update configuration targeted upstream `LmeSzinc/AzurLaneAutoScript`; updater logic could reset and pull destructively. Immediate updater risk is contained, while full reconstruction remains in M8. | M0 / M8 | WP0.3 fork-owned disabled defaults, persisted legacy migration, one fail-closed guard, fast-forward-only update path, and `tests.test_updater_containment`; rollback, release channels, and reproducible packaging remain M8 work. |
 | `ALAS-AUDIT-002` | P1 | OPEN | GUI defaults can bind to `0.0.0.0` while authentication is absent when no password/key is configured. | M0 / M7 | Loopback default, explicit remote-access opt-in, authentication-state tests and documentation. |
-| `ALAS-AUDIT-003` | P1 | IN_PROGRESS | No repository-wide agent/contributor governance file and no canonical documentation placement policy. | M0 | Root `AGENTS.md`, documentation index, roadmap, and review of repository links. |
+| `ALAS-AUDIT-003` | P1 | CLOSED | Repository-wide agent/contributor governance and a canonical documentation placement policy are present. | M0 | Merged [PR #2](https://github.com/AliceLiddell01/AzurLaneAutoScript/pull/2) at `ca45dc0b709eee4173864f54a96241dd50f9ac69`: root `AGENTS.md`, documentation indexes, roadmap, audit register, and repository-link review. |
 | `ALAS-AUDIT-004` | P1 | OPEN | Validation documentation reports overall PASS although webapp and real-device checks were skipped or unavailable. | M1 / M9 | Result vocabulary applied, reports distinguish PASS/FAIL/BLOCKED/SKIPPED/UNKNOWN, rerun evidence. |
 | `ALAS-AUDIT-005` | P1 | OPEN | Webapp `package-lock.json` is inconsistent with `package.json`, including missing direct dependencies and root metadata drift. | M1 / M7 | Clean lockfile regeneration, immutable install succeeds, lint/typecheck/test/build results recorded. |
 | `ALAS-AUDIT-006` | P1 | OPEN | Windows deployment configuration contains legacy repository aliases pointing to `LmeSzinc/StarRailCopilot`. | M0 / M8 | Aliases removed or corrected, config migration tests, repository-target scan passes. |
@@ -60,4 +60,15 @@ A finding may move to `CLOSED` only when all applicable items are present:
 
 ## Current update
 
-This documentation-reorganization work starts remediation of `ALAS-AUDIT-003`. It does not close runtime, updater, dependency, packaging, webapp, OCR, or device findings.
+WP0.3 contains the immediate `ALAS-AUDIT-001` updater risk by changing active
+deployment defaults to the fork, disabling automatic update scheduling,
+migrating known legacy repository values fail-closed, and replacing destructive
+update behavior with a guarded fast-forward-only path. Focused tests use mocks
+and disposable local Git repositories; no real updater, external update
+network, installer/toolkit, or device operation was run.
+
+`ALAS-AUDIT-001` remains `MITIGATED`, not `CLOSED`, because rollback,
+release-channel, installer, and reproducible packaging reconstruction belong to
+M8. `ALAS-AUDIT-006` and `ALAS-AUDIT-016` remain open for later M0 work.
+`ALAS-AUDIT-003` is closed by the governance and documentation changes merged
+through PR #2.

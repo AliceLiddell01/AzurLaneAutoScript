@@ -4,6 +4,62 @@ from typing import Optional, Union
 from deploy.logger import logger
 from deploy.utils import *
 
+FORK_REPOSITORY = "https://github.com/AliceLiddell01/AzurLaneAutoScript"
+UPSTREAM_REPOSITORY = "https://github.com/LmeSzinc/AzurLaneAutoScript"
+UNSUPPORTED_REPOSITORY_ALIASES = {"cn", "jp", "tw"}
+
+
+def repository_identity(repository):
+    """
+    Return a stable GitHub repository identity without rewriting custom targets.
+    """
+    if not isinstance(repository, str):
+        return ""
+
+    value = repository.strip().rstrip("/")
+    if value.lower().endswith(".git"):
+        value = value[:-4]
+
+    lowered = value.lower()
+    if lowered.startswith("https://github.com/"):
+        return lowered[len("https://"):]
+    if lowered.startswith("git@github.com:"):
+        return "github.com/" + lowered[len("git@github.com:"):]
+    return lowered
+
+
+def normalize_known_repository(repository):
+    """
+    Canonicalize only fork-owned and explicitly supported legacy values.
+    """
+    if not isinstance(repository, str):
+        return repository
+
+    value = repository.strip()
+    if value.lower() == "global":
+        return FORK_REPOSITORY
+
+    identity = repository_identity(value)
+    if identity in {
+        repository_identity(FORK_REPOSITORY),
+        repository_identity(UPSTREAM_REPOSITORY),
+    }:
+        return FORK_REPOSITORY
+    return repository
+
+
+def is_legacy_repository(repository):
+    if not isinstance(repository, str):
+        return False
+    return (
+        repository.strip().lower() == "global"
+        or repository_identity(repository) == repository_identity(UPSTREAM_REPOSITORY)
+    )
+
+
+def is_fork_repository(repository):
+    return repository_identity(repository) == repository_identity(FORK_REPOSITORY)
+
 
 class ExecutionError(Exception):
     pass
@@ -11,12 +67,12 @@ class ExecutionError(Exception):
 
 class ConfigModel:
     # Git
-    Repository: str = "https://github.com/LmeSzinc/AzurLaneAutoScript"
+    Repository: str = FORK_REPOSITORY
     Branch: str = "master"
     GitExecutable: str = "./toolkit/Git/mingw64/bin/git.exe"
     GitProxy: Optional[str] = None
     SSLVerify: bool = False
-    AutoUpdate: bool = True
+    AutoUpdate: bool = False
 
     # Python
     PythonExecutable: str = "./toolkit/python.exe"
@@ -38,8 +94,8 @@ class ConfigModel:
 
     # Update
     EnableReload: bool = True
-    CheckUpdateInterval: int = 5
-    AutoRestartTime: str = "03:50"
+    CheckUpdateInterval: int = 0
+    AutoRestartTime: Optional[str] = None
 
     # Misc
     DiscordRichPresence: bool = False
@@ -119,8 +175,27 @@ class DeployConfig(ConfigModel):
         # Bypass webui.config.DeployConfig.__setattr__()
         # Don't write these into deploy.yaml
         super().__setattr__('GitOverCdn', False)
-        if self.Repository in ['global']:
-            super().__setattr__('Repository', 'https://github.com/LmeSzinc/AzurLaneAutoScript')
+
+        repository = self.Repository
+        normalized = normalize_known_repository(repository)
+        if normalized != repository:
+            self.config['Repository'] = normalized
+            super().__setattr__('Repository', normalized)
+
+        if is_legacy_repository(repository):
+            self.config['AutoUpdate'] = False
+            super().__setattr__('AutoUpdate', False)
+            logger.warning(
+                f'Legacy update repository migrated to {FORK_REPOSITORY}; '
+                f'automatic updates remain disabled'
+            )
+        elif isinstance(repository, str) and (
+            repository.strip().lower() in UNSUPPORTED_REPOSITORY_ALIASES
+        ):
+            logger.error(
+                f"Repository alias '{repository}' is unsupported by the EN-only fork; "
+                f"updater operations will be denied"
+            )
 
     def filepath(self, key):
         """
