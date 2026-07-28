@@ -85,6 +85,16 @@ The map-detection implementation is in `module.map_detection`. Configuration out
 
 Do not submit EN-only cleanup directly to upstream unless upstream explicitly accepts that scope. This fork retains upstream licensing, copyright, contributor history, and attribution.
 
+## Project documentation
+
+- [Repository rules for agents and contributors](AGENTS.md)
+- [Documentation index](doc/README.md)
+- [Python 3.14.6 modernization roadmap](doc/roadmap/python-3.14-modernization.md)
+- [Audit remediation register](doc/roadmap/audit-remediation-register.md)
+- [EN-only migration archive](doc/migrations/en-only/README.md)
+
+Active development plans and audit remediation status belong under `doc/roadmap/`. Completed migration records belong under `doc/migrations/` rather than in the repository root.
+
 ## Acknowledgements
 
 - EN support: [whoamikyo](https://github.com/whoamikyo) and [nEEtdo0d](https://github.com/nEEtdo0d)
