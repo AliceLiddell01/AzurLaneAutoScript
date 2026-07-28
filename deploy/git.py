@@ -174,7 +174,12 @@ class GitManager(DeployConfig):
             return status
 
         remote_ref = f"origin/{self.Branch}"
-        result = self._run_git("merge", "--ff-only", remote_ref)
+        result = self._run_git(
+            "merge",
+            "--ff-only",
+            "--no-overwrite-ignore",
+            remote_ref,
+        )
         if result is None or result.returncode != 0:
             logger.warning("Fast-forward update failed; checkout was not reset")
             return self.UPDATE_FAILED

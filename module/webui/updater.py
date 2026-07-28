@@ -201,7 +201,7 @@ class Updater(DeployConfig, GitManager, PipManager):
         th = yield
         if self.schedule_time is None:
             th.remove_current_task()
-            yield
+            return
         th._task.delay = get_next_time(self.schedule_time)
         yield
         while True:

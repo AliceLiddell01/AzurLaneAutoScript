@@ -229,8 +229,12 @@ class DisposableGitUpdateTests(unittest.TestCase):
         self.git("init", "--initial-branch=master", str(self.seed))
         self.git("config", "user.email", "tests@example.invalid", cwd=self.seed)
         self.git("config", "user.name", "Updater tests", cwd=self.seed)
+        (self.seed / ".gitignore").write_text(
+            "ignored-local.txt\n",
+            encoding="utf-8",
+        )
         (self.seed / "tracked.txt").write_text("original\n", encoding="utf-8")
-        self.git("add", "tracked.txt", cwd=self.seed)
+        self.git("add", ".gitignore", "tracked.txt", cwd=self.seed)
         self.git("commit", "-m", "initial", cwd=self.seed)
         self.git("remote", "add", "origin", str(self.remote), cwd=self.seed)
         self.git("push", "-u", "origin", "master", cwd=self.seed)
@@ -312,6 +316,48 @@ class DisposableGitUpdateTests(unittest.TestCase):
         after = self.git("rev-parse", "HEAD", cwd=self.checkout).stdout.strip()
         self.assertEqual(after, before)
         self.assertTrue((self.checkout / "local.txt").exists())
+
+    def test_ignored_file_collision_aborts_and_preserves_local_file(self):
+        ignored = self.checkout / "ignored-local.txt"
+        ignored.write_text("local ignored content\n", encoding="utf-8")
+        self.git("check-ignore", "ignored-local.txt", cwd=self.checkout)
+
+        (self.seed / "ignored-local.txt").write_text(
+            "remote tracked content\n",
+            encoding="utf-8",
+        )
+        self.git("add", "-f", "ignored-local.txt", cwd=self.seed)
+        self.git("commit", "-m", "add tracked ignored path", cwd=self.seed)
+        self.git("push", "origin", "master", cwd=self.seed)
+
+        before_head = self.git(
+            "rev-parse",
+            "HEAD",
+            cwd=self.checkout,
+        ).stdout.strip()
+        before_remote = self.git(
+            "remote",
+            "get-url",
+            "origin",
+            cwd=self.checkout,
+        ).stdout.strip()
+
+        with mock.patch("deploy.git.is_fork_repository", side_effect=self.fork_policy):
+            result = self.manager.git_install()
+
+        self.assertEqual(result, GitManager.UPDATE_FAILED)
+        self.assertEqual(
+            self.git("rev-parse", "HEAD", cwd=self.checkout).stdout.strip(),
+            before_head,
+        )
+        self.assertEqual(
+            ignored.read_text(encoding="utf-8"),
+            "local ignored content\n",
+        )
+        self.assertEqual(
+            self.git("remote", "get-url", "origin", cwd=self.checkout).stdout.strip(),
+            before_remote,
+        )
 
 
 class WebUpdaterContainmentTests(unittest.TestCase):
@@ -456,6 +502,35 @@ class WebUpdaterContainmentTests(unittest.TestCase):
             self.assertFalse(updater.run_update())
         running_instances.assert_not_called()
 
+    def test_disabled_schedule_removes_task_without_updater_operations(self):
+        updater = self.updater()
+        updater.read = mock.Mock()
+        updater.AutoUpdate = False
+        updater.AutoRestartTime = "03:50"
+        updater.check_update = mock.Mock()
+        updater.run_update = mock.Mock()
+        updater.git_install = mock.Mock()
+        updater.pip_install = mock.Mock()
+        updater._run_git = mock.Mock()
+        task = mock.Mock()
+
+        schedule = updater.schedule_update()
+        next(schedule)
+        with mock.patch.object(
+            self.updater_module.ProcessManager,
+            "running_instances",
+        ) as running_instances:
+            with self.assertRaises(StopIteration):
+                schedule.send(task)
+
+        task.remove_current_task.assert_called_once_with()
+        updater.check_update.assert_not_called()
+        updater.run_update.assert_not_called()
+        updater.git_install.assert_not_called()
+        updater.pip_install.assert_not_called()
+        updater._run_git.assert_not_called()
+        running_instances.assert_not_called()
+
 
 class ActiveUpdaterInvariantTests(unittest.TestCase):
     def test_manual_scheduled_and_direct_paths_share_guarded_contract(self):
@@ -486,6 +561,10 @@ class ActiveUpdaterInvariantTests(unittest.TestCase):
             with self.subTest(path=path):
                 for value in forbidden:
                     self.assertNotIn(value, text)
+        self.assertIn(
+            '"--no-overwrite-ignore"',
+            (REPOSITORY_ROOT / "deploy" / "git.py").read_text(encoding="utf-8"),
+        )
 
     def test_direct_module_blocks_do_not_run_updater(self):
         for path in (
